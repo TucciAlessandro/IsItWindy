@@ -40,8 +40,8 @@ const ButtonItem = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-weight: 900;
-
+  font-weight: 300;
+  letter-spacing: 0.3rem;
   width: 200px;
   height: 40px;
   flex: 1;

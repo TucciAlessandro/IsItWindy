@@ -8,6 +8,7 @@ import { createGlobalStyle } from "styled-components";
 import { Navbar } from "./components/Navbar";
 
 const GlobalStyles = createGlobalStyle`
+/* @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap'); */
 body {
   overflow: hidden;
   padding: 0;
@@ -15,6 +16,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  /* font-family: 'Poppins', sans-serif; */
 }
 
 `;

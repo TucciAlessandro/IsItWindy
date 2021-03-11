@@ -21,25 +21,21 @@ const ModifiedUl = styled(motion.ul)`
   width: 230px;
 `;
 
-export const Navigation = (toggle: any) => {
+export const Navigation = ({ toggle }: any) => {
   const history = useHistory();
 
   const toHome = () => {
+    toggle();
     history.push("/");
   };
   const toAdmin = () => {
+    toggle();
     history.push("/admin");
   };
   return (
     <ModifiedUl variants={variants}>
-      <MenuItem onClick={toggle} redirect={toHome} route="home" i={1} key={1} />
-      <MenuItem
-        onClick={toggle}
-        redirect={toAdmin}
-        route="login"
-        i={2}
-        key={2}
-      />
+      <MenuItem redirect={toHome} route="HOME" i={1} key={1} />
+      <MenuItem redirect={toAdmin} route="LOGIN" i={2} key={2} />
     </ModifiedUl>
   );
 };

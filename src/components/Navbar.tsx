@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { motion, useCycle } from "framer-motion";
 import { useDimensions } from "./use-dimension";
 
@@ -42,9 +42,13 @@ const ModifiedNavbar = styled(motion.nav)`
   width: 300px;
 `;
 const Navbar = () => {
-  const [isOpen, toggleOpen] = useCycle(false, true);
+  const [isOpen, setToggleOpen] = useState(false);
   const containerRef = useRef(null);
   const { height } = useDimensions(containerRef);
+
+  const toggleOpen = () => {
+    setToggleOpen(!isOpen);
+  };
 
   return (
     <ModifiedNavbar
@@ -54,7 +58,7 @@ const Navbar = () => {
       ref={containerRef}
     >
       <Background variants={sidebar} />
-      <Navigation toggle={()=> toggleOpen()} />
+      <Navigation toggle={() => toggleOpen()} />
       <MenuToggle toggle={() => toggleOpen()} />
     </ModifiedNavbar>
   );
