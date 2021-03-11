@@ -1,10 +1,22 @@
-import { motion, useMotionValue, useTransform } from "framer-motion";
+import {
+  motion,
+  MotionValue,
+  useTransform,
+} from "framer-motion";
+import styled from "styled-components";
 
 
 
-const Svg = () => {
-  const x = useMotionValue(0);
-  const xInput = [-100, 0, 100];
+interface SvgProps {
+  x: MotionValue<number>;
+  xInput: number[];
+}
+
+const StyledSvg = styled.svg`
+  width: 80%;
+  height: 80%;
+`;
+const Svg = ({ x, xInput}: SvgProps) => {
   const color = useTransform(x, xInput, [
     "rgb(211, 9, 225)",
     "rgb(68, 0, 255)",
@@ -15,7 +27,7 @@ const Svg = () => {
   const crossPathB = useTransform(x, [-10, -50], [0, 1]);
 
   return (
-    <svg className="progress-icon" viewBox="0 0 50 50">
+    <StyledSvg viewBox="0 0 50 50">
       <motion.path
         fill="none"
         strokeWidth="2"
@@ -47,7 +59,7 @@ const Svg = () => {
         strokeDasharray="0 1"
         style={{ pathLength: crossPathB }}
       />
-    </svg>
+    </StyledSvg>
   );
 };
 
