@@ -25,7 +25,6 @@ const Admin = () => {
 
     isWindyDb.update({ isWindy: newValue });
   };
-
   const handleDragEnd = (_evt: FramerDragEvent, panInfo: PanInfo) => {
     const width = window.innerWidth;
     const offSet = panInfo.offset;
@@ -36,11 +35,8 @@ const Admin = () => {
 
     shouldUpdate && updateIsWindy(isWindy);
   };
-
   return (
     <>
-      <div>{isWindyToggle && "true"}</div>
-      <div>{!isWindyToggle && "false"}</div>
       <Slider onDragEnd={handleDragEnd} />
     </>
   );

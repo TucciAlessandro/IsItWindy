@@ -5,6 +5,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { Home } from "./screens/home";
 import { Admin } from "./screens/admin";
 import { createGlobalStyle } from "styled-components";
+import { Navbar } from "./components/Navbar";
 
 const GlobalStyles = createGlobalStyle`
 body {
@@ -22,6 +23,7 @@ ReactDOM.render(
   <React.StrictMode>
     <GlobalStyles />
     <BrowserRouter>
+      <Navbar />
       <Switch>
         <Route path="/admin" component={Admin} />
         <Route path="/" component={Home} />
