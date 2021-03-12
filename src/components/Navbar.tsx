@@ -34,12 +34,17 @@ const Background = styled(motion.div)`
   width: 300px;
   background: #fff;
 `;
-const ModifiedNavbar = styled(motion.nav)`
+
+interface ModifiedNavbarProps {
+  isOpen: boolean;
+}
+const ModifiedNavbar = styled(motion.nav)<ModifiedNavbarProps>`
   position: absolute;
   top: 0;
   left: 0;
   bottom: 0;
   width: 300px;
+  z-index: ${(props) => (props.isOpen ? "200" : "")};
   /* z-index: 200; */
 `;
 const Navbar = () => {
@@ -53,6 +58,7 @@ const Navbar = () => {
 
   return (
     <ModifiedNavbar
+      isOpen={isOpen}
       initial={false}
       animate={isOpen ? "open" : "closed"}
       custom={height}
