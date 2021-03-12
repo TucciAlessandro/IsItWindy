@@ -1,11 +1,5 @@
-import {
-  motion,
-  MotionValue,
-  useTransform,
-} from "framer-motion";
+import { motion, MotionValue, useTransform } from "framer-motion";
 import styled from "styled-components";
-
-
 
 interface SvgProps {
   x: MotionValue<number>;
@@ -16,9 +10,9 @@ const StyledSvg = styled.svg`
   width: 80%;
   height: 80%;
 `;
-const Svg = ({ x, xInput}: SvgProps) => {
+const Svg = ({ x, xInput }: SvgProps) => {
   const color = useTransform(x, xInput, [
-    "rgb(211, 9, 225)",
+    "rgb(211, 9, 40)",
     "rgb(68, 0, 255)",
     "rgb(3, 209, 0)",
   ]);
