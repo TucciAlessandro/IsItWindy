@@ -40,6 +40,7 @@ const ModifiedNavbar = styled(motion.nav)`
   left: 0;
   bottom: 0;
   width: 300px;
+  z-index: 200;
 `;
 const Navbar = () => {
   const [isOpen, setToggleOpen] = useState(false);
