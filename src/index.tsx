@@ -6,6 +6,7 @@ import { Home } from "./screens/home";
 import { Admin } from "./screens/admin";
 import { createGlobalStyle } from "styled-components";
 import { Navbar } from "./components/Navbar";
+import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 
 const GlobalStyles = createGlobalStyle`
 /* @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap'); */
@@ -35,4 +36,5 @@ ReactDOM.render(
   document.getElementById("root")
 );
 
+serviceWorkerRegistration.register();
 reportWebVitals();
