@@ -62,8 +62,6 @@ const Navbar = () => {
         isOpen={isOpen}
         initial={false}
         animate={isOpen ? "open" : "closed"}
-        // onAnimationComplete={() => handleAnimationComplete()}
-
         custom={height ?? 0}
         ref={containerRef}
       >
