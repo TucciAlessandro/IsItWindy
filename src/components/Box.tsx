@@ -7,7 +7,7 @@ const Box = styled(motion.div)`
   width: 150px;
   height: 150px;
   position: absolute;
-  top: calc(50% - 150px / 2);
+  top: calc(40% - 150px / 2);
   left: calc(50% - 150px / 2);
   display: flex;
   justify-content: center;

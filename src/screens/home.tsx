@@ -10,14 +10,36 @@ const Container = styled(motion.div)`
   width: 100vw;
   z-index: 2;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 `;
 
-const Text = styled(motion.h2)`
+const TextContainer = styled(motion.div)`
+  display: flex;
+  height: 50%;
+  width: 80%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10rem;
+`;
+const H1 = styled(motion.h1)`
   display: flex;
   justify-content: center;
   margin: 0rem;
+  font-size: 30px;
+  font-weight: 300;
+  color: white;
+  align-items: center;
+`;
+const H4 = styled(motion.h1)`
+  display: flex;
+  justify-content: center;
+
+  font-size: 18px;
+  font-weight: 300;
+  color: white;
   align-items: center;
 `;
 const Home = () => {
@@ -55,7 +77,26 @@ const Home = () => {
       <Box>
         <Svg x={spring} xInput={yInput} />
       </Box>
-      {/* <Text>CE VENTO</Text> */}
+      <TextContainer>
+        {isWindyToggle ? (
+          <>
+            <H1
+              initial={{ x: -20 }}
+              animate={{ x: 0 }}
+              transition={{ ease: "easeOut", duration: 1 }}
+            >
+              Lessons are on!{" "}
+            </H1>
+            <H4>last update was @</H4>
+          </>
+        ) : (
+          <>
+            <H1>Lessons are off! </H1>
+            <H4>Contact the school for any problems</H4>
+            <H4>last update was @</H4>
+          </>
+        )}
+      </TextContainer>
     </Container>
   );
 };
