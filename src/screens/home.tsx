@@ -8,6 +8,7 @@ import { Svg } from "../components/Svg";
 const Container = styled(motion.div)`
   height: 100vh;
   width: 100vw;
+  z-index: 2;
   display: flex;
   justify-content: center;
   align-items: center;

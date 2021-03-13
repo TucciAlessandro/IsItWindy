@@ -18,7 +18,6 @@ const sidebar = {
   closed: {
     clipPath: "circle(30px at 40px 40px)",
     transition: {
-      delay: 0.1,
       type: "spring",
       stiffness: 400,
       damping: 40,
@@ -44,8 +43,7 @@ const ModifiedNavbar = styled(motion.nav)<ModifiedNavbarProps>`
   left: 0;
   bottom: 0;
   width: 300px;
-  z-index: ${(props) => (props.isOpen ? "200" : "0")};
-  /* z-index: ${(props) => (props.isOpen ? "200" : "")}; */
+  z-index: ${(props) => (props.isOpen ? "20" : "")};
 `;
 const Navbar = () => {
   const [isOpen, setToggleOpen] = useState(false);
@@ -65,6 +63,7 @@ const Navbar = () => {
         initial={false}
         animate={isOpen ? "open" : "closed"}
         // onAnimationComplete={() => handleAnimationComplete()}
+
         custom={height ?? 0}
         ref={containerRef}
       >

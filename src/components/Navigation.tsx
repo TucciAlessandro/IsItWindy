@@ -7,9 +7,13 @@ import { firebase } from "./../realtimedb/firebase";
 const variants = {
   open: {
     transition: { staggerChildren: 0.07, delayChildren: 0.2 },
+    display: "block",
   },
   closed: {
     transition: { staggerChildren: 0.05, staggerDirection: -1 },
+    transitionEnd: {
+      display: "none",
+    },
   },
 };
 
@@ -19,6 +23,7 @@ const ModifiedUl = styled(motion.ul)`
   padding: 25px;
   position: absolute;
   top: 100px;
+  z-index: 1;
   width: 230px;
 `;
 
@@ -29,9 +34,10 @@ export const Navigation = ({ toggle }: any) => {
     toggle();
     history.push("/");
   };
-  const toAdmin = () => {
+  const toLogout = () => {
     toggle();
-    history.push("/admin");
+    firebase.auth().signOut();
+    history.push("/");
   };
   const toLogin = () => {
     toggle();
@@ -39,14 +45,9 @@ export const Navigation = ({ toggle }: any) => {
   };
   return (
     <ModifiedUl variants={variants}>
-      <MenuItem redirect={toHome} route="HOME" i={1} key={1} />
-      <MenuItem redirect={toLogin} route="ADMIN" i={2} key={2} />
-      <MenuItem
-        redirect={() => firebase.auth().signOut()}
-        route="LOGIN"
-        i={3}
-        key={3}
-      />
+      <MenuItem redirect={toHome} route="HOME" i={3} key={3} />
+      <MenuItem redirect={toLogin} route="LOGIN" i={2} key={2} />
+      <MenuItem redirect={toLogout} route="LOGOUT" i={1} key={1} />
     </ModifiedUl>
   );
 };

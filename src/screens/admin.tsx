@@ -2,8 +2,10 @@ import { useEffect, useState } from "react";
 import { FramerDragEvent, Slider } from "../components/Slider";
 import { firebase } from "./../realtimedb/firebase";
 import { motion, PanInfo } from "framer-motion";
+import { useHistory } from "react-router-dom";
 
 const Admin = () => {
+  const history = useHistory();
   const [isWindyToggle, setIsWindyToggle] = useState();
 
   useEffect(() => {
@@ -34,6 +36,7 @@ const Admin = () => {
     const isWindy = x > 0;
 
     shouldUpdate && updateIsWindy(isWindy);
+    history.push("/");
   };
   return (
     <>

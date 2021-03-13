@@ -9,12 +9,16 @@ const variants = {
     transition: {
       y: { stiffness: 1000, velocity: -100 },
     },
+    display: "flex",
   },
   closed: {
     y: 50,
     opacity: 0,
     transition: {
       y: { stiffness: 1000 },
+    },
+    transitionEnd: {
+      display: "none",
     },
   },
 };
@@ -47,7 +51,7 @@ const ButtonItem = styled.button`
   flex: 1;
 `;
 
-const colors = ["#FF008C", "#D309E1", "#9C1AFF", "#7700FF", "#4400FF"];
+const colors = ["#FF008C", "#9C1AFF", "#7700FF", "#4400FF"];
 
 export const MenuItem = ({ i, route, redirect }: any) => {
   const style = { border: `2px solid ${colors[i]}` };
