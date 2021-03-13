@@ -18,7 +18,7 @@ const sidebar = {
   closed: {
     clipPath: "circle(30px at 40px 40px)",
     transition: {
-      delay: 0.5,
+      delay: 0.1,
       type: "spring",
       stiffness: 400,
       damping: 40,
@@ -44,10 +44,13 @@ const ModifiedNavbar = styled(motion.nav)<ModifiedNavbarProps>`
   left: 0;
   bottom: 0;
   width: 300px;
-  z-index: ${(props) => (props.isOpen ? "200" : "")};
+  z-index: ${(props) => (props.isOpen ? "200" : "0")};
+  /* z-index: ${(props) => (props.isOpen ? "200" : "")}; */
 `;
 const Navbar = () => {
   const [isOpen, setToggleOpen] = useState(false);
+  const [showNavbar, setShowNavbar] = useState(false);
+
   const containerRef = useRef(null);
   const { height } = useDimensions(containerRef);
 
@@ -56,17 +59,24 @@ const Navbar = () => {
   };
 
   return (
-    <ModifiedNavbar
-      isOpen={isOpen}
-      initial={false}
-      animate={isOpen ? "open" : "closed"}
-      custom={height}
-      ref={containerRef}
-    >
-      <Background variants={sidebar} />
-      <Navigation toggle={() => toggleOpen()} />
-      <MenuToggle toggle={() => toggleOpen()} />
-    </ModifiedNavbar>
+    <>
+      <ModifiedNavbar
+        isOpen={isOpen}
+        initial={false}
+        animate={isOpen ? "open" : "closed"}
+        // onAnimationComplete={() => handleAnimationComplete()}
+        custom={height ?? 0}
+        ref={containerRef}
+      >
+        <Background variants={sidebar} />
+        <Navigation toggle={() => toggleOpen()} />
+      </ModifiedNavbar>
+
+      <MenuToggle
+        animate={isOpen ? "open" : "closed"}
+        toggle={() => toggleOpen()}
+      />
+    </>
   );
 };
 

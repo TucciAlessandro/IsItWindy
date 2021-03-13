@@ -1,7 +1,6 @@
 import { motion } from "framer-motion";
 import styled from "styled-components";
 
-
 const Path = (props: any) => (
   <motion.path
     fill="transparent"
@@ -12,7 +11,7 @@ const Path = (props: any) => (
   />
 );
 
-const MenuButton = styled.button`
+const MenuButton = styled(motion.button)`
   outline: none;
   border: none;
   -webkit-user-select: none;
@@ -20,6 +19,7 @@ const MenuButton = styled.button`
   -ms-user-select: none;
   cursor: pointer;
   position: absolute;
+  z-index: 300;
   top: 18px;
   left: 15px;
   width: 50px;
@@ -28,8 +28,8 @@ const MenuButton = styled.button`
   background: transparent;
 `;
 
-export const MenuToggle = ({ toggle }: any) => (
-  <MenuButton onClick={toggle}>
+export const MenuToggle = ({ toggle, animate }: any) => (
+  <MenuButton animate={animate} onClick={toggle}>
     <svg width="23" height="23" viewBox="0 0 23 23">
       <Path
         variants={{

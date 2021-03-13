@@ -7,6 +7,7 @@ import { Admin } from "./screens/admin";
 import { createGlobalStyle } from "styled-components";
 import { Navbar } from "./components/Navbar";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
+import Login from "./screens/login";
 
 const GlobalStyles = createGlobalStyle`
 /* @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap'); */
@@ -28,6 +29,7 @@ ReactDOM.render(
     <BrowserRouter>
       <Navbar />
       <Switch>
+        <Route exact path="/login" component={Login} />
         <Route path="/admin" component={Admin} />
         <Route path="/" component={Home} />
       </Switch>
