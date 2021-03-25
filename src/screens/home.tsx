@@ -79,7 +79,7 @@ const Home = () => {
         <Svg x={spring} xInput={yInput} />
       </Box>
       <TextContainer>
-        {isWindyToggle && lift ? (
+        {isWindyToggle && lift && (
           <>
             <H1
               initial={{ x: -20 }}
@@ -90,27 +90,21 @@ const Home = () => {
             </H1>
             <H4>last update was @</H4>
           </>
-        ) : (
-          ""
         )}
-        {!isWindyToggle && !lift ? (
+        {!isWindyToggle && !lift && (
           <>
-            <>
-              <H1
-                initial={{ x: -20 }}
-                animate={{ x: 0 }}
-                transition={{ ease: "easeOut", duration: 1 }}
-              >
-                Lessons and lifts are off!{" "}
-              </H1>
-              <H4>Contact the school for any problems</H4>
-              <H4>last update was @</H4>
-            </>
+            <H1
+              initial={{ x: -20 }}
+              animate={{ x: 0 }}
+              transition={{ ease: "easeOut", duration: 1 }}
+            >
+              Lessons and lifts are off!{" "}
+            </H1>
+            <H4>Contact the school for any problems</H4>
+            <H4>last update was @</H4>
           </>
-        ) : (
-          ""
         )}
-        {!lift && isWindyToggle ? (
+        {!lift && isWindyToggle && (
           <>
             <H1
               initial={{ x: -20 }}
@@ -121,8 +115,9 @@ const Home = () => {
             </H1>
             <H4>last update was @</H4>
           </>
-        ) : (
-          ""
+        )}
+        {lift === undefined && isWindyToggle === undefined && (
+          <H1>COME BACK LATER</H1>
         )}
       </TextContainer>
     </Container>
