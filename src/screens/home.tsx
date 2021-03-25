@@ -88,10 +88,16 @@ const Home = () => {
             >
               Lessons and lifts are on!{" "}
             </H1>
-            <H4>last update was @</H4>
+            <H4
+              initial={{ x: -20 }}
+              animate={{ x: 0 }}
+              transition={{ ease: "easeOut", duration: 1 }}
+            >
+              last update was @
+            </H4>
           </>
         )}
-        {!isWindyToggle && !lift && (
+        {!isWindyToggle && !lift && isWindyToggle !== undefined && (
           <>
             <H1
               initial={{ x: -20 }}
@@ -100,8 +106,20 @@ const Home = () => {
             >
               Lessons and lifts are off!{" "}
             </H1>
-            <H4>Contact the school for any problems</H4>
-            <H4>last update was @</H4>
+            <H4
+              initial={{ x: -20 }}
+              animate={{ x: 0 }}
+              transition={{ ease: "easeOut", duration: 1 }}
+            >
+              Contact the school for any problems
+            </H4>
+            <H4
+              initial={{ x: -20 }}
+              animate={{ x: 0 }}
+              transition={{ ease: "easeOut", duration: 1 }}
+            >
+              last update was @
+            </H4>
           </>
         )}
         {!lift && isWindyToggle && (
@@ -113,12 +131,24 @@ const Home = () => {
             >
               Lessons are on, however lifts are off due to not enough wind!
             </H1>
-            <H4>last update was @</H4>
+            <H4
+              initial={{ x: -20 }}
+              animate={{ x: 0 }}
+              transition={{ ease: "easeOut", duration: 1 }}
+            >
+              last update was @
+            </H4>
           </>
         )}
-        {lift === undefined && isWindyToggle === undefined && (
-          <H1>COME BACK LATER</H1>
-        )}
+        {/* {lift === undefined && isWindyToggle === undefined && (
+          <H1
+            initial={{ x: -20 }}
+            animate={{ x: 0 }}
+            transition={{ ease: "easeOut", duration: 1 }}
+          >
+            COME BACK LATER
+          </H1>
+        )} */}
       </TextContainer>
     </Container>
   );
