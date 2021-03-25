@@ -8,6 +8,7 @@ import { createGlobalStyle } from "styled-components";
 import { Navbar } from "./components/Navbar";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import Login from "./screens/login";
+import { AdminLift } from "./screens/adminlift";
 
 const GlobalStyles = createGlobalStyle`
 /* @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap'); */
@@ -30,6 +31,7 @@ ReactDOM.render(
       <Navbar />
       <Switch>
         <Route exact path="/login" component={Login} />
+        <Route path="/adminlift" component={AdminLift} />
         <Route path="/admin" component={Admin} />
         <Route path="/" component={Home} />
       </Switch>

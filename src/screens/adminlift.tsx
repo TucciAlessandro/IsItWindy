@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { FramerDragEvent, Slider } from "../components/Slider";
 import { firebase } from "./../realtimedb/firebase";
-import { motion, PanInfo } from "framer-motion";
+import { PanInfo } from "framer-motion";
 import { useHistory } from "react-router-dom";
 
-const Admin = () => {
+const AdminLift = () => {
   const history = useHistory();
   const [isWindyToggle, setIsWindyToggle] = useState();
 
@@ -24,25 +24,24 @@ const Admin = () => {
       .firestore()
       .collection("Easykite")
       .doc("zH5WIKrlR152IaQLYa2M");
-
-    isWindyDb.update({ isWindy: newValue });
+    isWindyDb.update({ lift: newValue });
   };
   const handleDragEnd = (_evt: FramerDragEvent, panInfo: PanInfo) => {
     const width = window.innerWidth;
     const offSet = panInfo.offset;
     const x = offSet.x;
-
     const shouldUpdate = Math.abs(x) > width / 4;
     const isWindy = x > 0;
 
     shouldUpdate && updateIsWindy(isWindy);
-    history.push("/adminlift");
+    console.log(isWindy);
+    // history.push("/");
   };
   return (
     <>
-      <Slider type="Lesson" onDragEnd={handleDragEnd} />
+      <Slider type="Lift" onDragEnd={handleDragEnd} />
     </>
   );
 };
 
-export { Admin };
+export { AdminLift };

@@ -8,12 +8,20 @@ const Container = styled(motion.div)`
   height: 100vh;
 `;
 
+const Type = styled.h1`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+`;
+
 export type FramerDragEvent = MouseEvent | TouchEvent | PointerEvent;
 interface SliderProps {
   onDragEnd: (evt: FramerDragEvent, info: PanInfo) => void;
+  type: string;
 }
 
-export const Slider = ({ onDragEnd }: SliderProps) => {
+export const Slider = ({ onDragEnd, type }: SliderProps) => {
   const x = useMotionValue(0);
   const xInput = [-100, 0, 100];
   const background = useTransform(x, xInput, [
@@ -24,6 +32,7 @@ export const Slider = ({ onDragEnd }: SliderProps) => {
 
   return (
     <Container style={{ background }}>
+      <Type>{type}</Type>
       <Box
         style={{ x }}
         drag="x"

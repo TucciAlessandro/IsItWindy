@@ -28,6 +28,7 @@ const H1 = styled(motion.h1)`
   display: flex;
   justify-content: center;
   margin: 0rem;
+  text-align: center;
   font-size: 30px;
   font-weight: 300;
   color: white;
@@ -44,10 +45,7 @@ const H4 = styled(motion.h1)`
 `;
 const Home = () => {
   const [isWindyToggle, setIsWindyToggle] = useState();
-  const isWindy = firebase
-    .firestore()
-    .collection("Easykite")
-    .doc("zH5WIKrlR152IaQLYa2M");
+  const [lift, setLift] = useState();
 
   useEffect(() => {
     const isWindyDb = firebase
@@ -58,8 +56,10 @@ const Home = () => {
     isWindyDb.onSnapshot((doc) => {
       const value = doc.data();
       value && setIsWindyToggle(value.isWindy);
+      value && setLift(value.lift);
     });
   }, []);
+
   let y = useMotionValue(0);
   const yInput = [-100, 0, 100];
   const spring = useSpring(y);
@@ -72,29 +72,57 @@ const Home = () => {
   if (isWindyToggle !== undefined) {
     isWindyToggle ? spring.set(80) : spring.set(-90);
   }
+
   return (
     <Container style={{ background }}>
       <Box>
         <Svg x={spring} xInput={yInput} />
       </Box>
       <TextContainer>
-        {isWindyToggle ? (
+        {isWindyToggle && lift ? (
           <>
             <H1
               initial={{ x: -20 }}
               animate={{ x: 0 }}
               transition={{ ease: "easeOut", duration: 1 }}
             >
-              Lessons are on!{" "}
+              Lessons and lifts are on!{" "}
             </H1>
             <H4>last update was @</H4>
           </>
         ) : (
+          ""
+        )}
+        {!isWindyToggle && !lift ? (
           <>
-            <H1>Lessons are off! </H1>
-            <H4>Contact the school for any problems</H4>
+            <>
+              <H1
+                initial={{ x: -20 }}
+                animate={{ x: 0 }}
+                transition={{ ease: "easeOut", duration: 1 }}
+              >
+                Lessons and lifts are off!{" "}
+              </H1>
+              <H4>Contact the school for any problems</H4>
+              <H4>last update was @</H4>
+            </>
+          </>
+        ) : (
+          ""
+        )}
+        {!lift && isWindyToggle ? (
+          <>
+            <H1
+              initial={{ x: -20 }}
+              animate={{ x: 0 }}
+              transition={{ ease: "easeOut", duration: 1 }}
+            >
+              Lessons are on, however lifts are off due to not enough wind!
+            </H1>
             <H4>last update was @</H4>
           </>
+        ) : (
+          ""
         )}
       </TextContainer>
     </Container>
