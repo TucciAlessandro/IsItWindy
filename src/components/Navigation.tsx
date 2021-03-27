@@ -29,7 +29,7 @@ const ModifiedUl = styled(motion.ul)`
 
 export const Navigation = ({ toggle }: any) => {
   const history = useHistory();
-
+  let user = firebase.auth().currentUser;
   const toHome = () => {
     toggle();
     history.push("/");
@@ -47,7 +47,7 @@ export const Navigation = ({ toggle }: any) => {
     <ModifiedUl variants={variants}>
       <MenuItem redirect={toHome} route="HOME" i={3} key={3} />
       <MenuItem redirect={toLogin} route="LOGIN" i={2} key={2} />
-      <MenuItem redirect={toLogout} route="LOGOUT" i={1} key={1} />
+      {user && <MenuItem redirect={toLogout} route="LOGOUT" i={1} key={1} />}
     </ModifiedUl>
   );
 };

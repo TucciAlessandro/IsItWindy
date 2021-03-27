@@ -46,6 +46,7 @@ const H4 = styled(motion.h1)`
 const Home = () => {
   const [isWindyToggle, setIsWindyToggle] = useState();
   const [lift, setLift] = useState();
+  const [date, setDate] = useState();
 
   useEffect(() => {
     const isWindyDb = firebase
@@ -57,9 +58,11 @@ const Home = () => {
       const value = doc.data();
       value && setIsWindyToggle(value.isWindy);
       value && setLift(value.lift);
+      value && setDate(value.date);
     });
   }, []);
 
+ 
   let y = useMotionValue(0);
   const yInput = [-100, 0, 100];
   const spring = useSpring(y);
@@ -92,9 +95,7 @@ const Home = () => {
               initial={{ x: -20 }}
               animate={{ x: 0 }}
               transition={{ ease: "easeOut", duration: 1 }}
-            >
-              last update was @
-            </H4>
+            ></H4>
           </>
         )}
         {!isWindyToggle && !lift && isWindyToggle !== undefined && (
