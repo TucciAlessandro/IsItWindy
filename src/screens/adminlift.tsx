@@ -3,10 +3,12 @@ import { FramerDragEvent, Slider } from "../components/Slider";
 import { firebase } from "./../realtimedb/firebase";
 import { PanInfo } from "framer-motion";
 import { useHistory } from "react-router-dom";
+import { Modal } from "../components/Modal";
 
 const AdminLift = () => {
   const history = useHistory();
-  const [isWindyToggle, setIsWindyToggle] = useState();
+  const [isLift, setIsLift] = useState();
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     const isWindyDb = firebase
@@ -15,9 +17,14 @@ const AdminLift = () => {
       .doc("zH5WIKrlR152IaQLYa2M");
     isWindyDb.onSnapshot((doc) => {
       const value = doc.data();
-      value && setIsWindyToggle(value.isWindy);
+      value && setIsLift(value.lift);
     });
   }, []);
+
+  const toggleModal = () => {
+    setIsModalOpen(!isModalOpen);
+    history.push("/");
+  };
 
   const updateIsWindy = (newValue: boolean) => {
     const isWindyDb = firebase
@@ -35,10 +42,20 @@ const AdminLift = () => {
 
     shouldUpdate && updateIsWindy(isWindy);
     console.log(isWindy);
-    // history.push("/");
+    setIsModalOpen(true);
   };
   return (
     <>
+      {isModalOpen && (
+        <Modal
+          text={
+            isLift
+              ? "I Lift son stati attivati"
+              : "I Lift son stati disattivati"
+          }
+          onClick={toggleModal}
+        />
+      )}
       <Slider type="Lift" onDragEnd={handleDragEnd} />
     </>
   );

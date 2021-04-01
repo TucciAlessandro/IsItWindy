@@ -4,6 +4,7 @@ import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import React, { useEffect, useState } from "react";
 import { Box } from "../components/Box";
 import { Svg } from "../components/Svg";
+import { Modal } from "../components/Modal";
 
 const Container = styled(motion.div)`
   height: 100vh;
@@ -48,6 +49,28 @@ const Home = () => {
   const [lift, setLift] = useState();
   const [date, setDate] = useState();
 
+  // const timestampToDate = (date: any) => {
+  //   const { seconds } = date;
+  //   let unix_timestamp = seconds;
+  //   // Create a new JavaScript Date object based on the timestamp
+  //   // multiplied by 1000 so that the argument is in milliseconds, not seconds.
+  //   if (unix_timestamp) {
+  //     let newdate = new Date(unix_timestamp * 1000);
+  //     // Hours part from the timestamp
+  //     let hours = newdate.getHours();
+  //     // Minutes part from the timestamp
+  //     let minutes = "0" + newdate.getMinutes();
+  //     // Seconds part from the timestamp
+  //     let seconds = "0" + newdate.getSeconds();
+
+  //     // Will display time in 10:30:23 format
+  //     let formattedTime =
+  //       hours + ":" + minutes.substr(-2) + ":" + seconds.substr(-2);
+
+  //     return formattedTime;
+  //   }
+  // };
+
   useEffect(() => {
     const isWindyDb = firebase
       .firestore()
@@ -61,8 +84,7 @@ const Home = () => {
       value && setDate(value.date);
     });
   }, []);
-
- 
+  console.log(date);
   let y = useMotionValue(0);
   const yInput = [-100, 0, 100];
   const spring = useSpring(y);
@@ -73,15 +95,40 @@ const Home = () => {
   ]);
 
   if (isWindyToggle !== undefined) {
-    isWindyToggle ? spring.set(80) : spring.set(-90);
+    isWindyToggle || lift ? spring.set(80) : spring.set(-90);
+  }
+
+  if (isWindyToggle === null) {
+    spring.set(0);
   }
 
   return (
     <Container style={{ background }}>
+      
       <Box>
         <Svg x={spring} xInput={yInput} />
       </Box>
       <TextContainer>
+        {isWindyToggle === null && lift === null ? (
+          <>
+            <H1
+              initial={{ x: -20 }}
+              animate={{ x: 0 }}
+              transition={{ ease: "easeOut", duration: 1 }}
+            >
+              Still needs to be updated today, try again in a few minutes.
+            </H1>
+            <H4
+              initial={{ x: -20 }}
+              animate={{ x: 0 }}
+              transition={{ ease: "easeOut", duration: 1 }}
+            >
+              {/* {`Last update was @ ${timestampToDate(date)} `} */}
+            </H4>
+          </>
+        ) : (
+          ""
+        )}
         {isWindyToggle && lift && (
           <>
             <H1
@@ -98,31 +145,34 @@ const Home = () => {
             ></H4>
           </>
         )}
-        {!isWindyToggle && !lift && isWindyToggle !== undefined && (
-          <>
-            <H1
-              initial={{ x: -20 }}
-              animate={{ x: 0 }}
-              transition={{ ease: "easeOut", duration: 1 }}
-            >
-              Lessons and lifts are off!{" "}
-            </H1>
-            <H4
-              initial={{ x: -20 }}
-              animate={{ x: 0 }}
-              transition={{ ease: "easeOut", duration: 1 }}
-            >
-              Contact the school for any problems
-            </H4>
-            <H4
-              initial={{ x: -20 }}
-              animate={{ x: 0 }}
-              transition={{ ease: "easeOut", duration: 1 }}
-            >
-              last update was @
-            </H4>
-          </>
-        )}
+        {!isWindyToggle &&
+          !lift &&
+          isWindyToggle !== undefined &&
+          isWindyToggle !== null && (
+            <>
+              <H1
+                initial={{ x: -20 }}
+                animate={{ x: 0 }}
+                transition={{ ease: "easeOut", duration: 1 }}
+              >
+                Lessons and lifts are off!{" "}
+              </H1>
+              <H4
+                initial={{ x: -20 }}
+                animate={{ x: 0 }}
+                transition={{ ease: "easeOut", duration: 1 }}
+              >
+                Contact the school for any problems
+              </H4>
+              <H4
+                initial={{ x: -20 }}
+                animate={{ x: 0 }}
+                transition={{ ease: "easeOut", duration: 1 }}
+              >
+                last update was @
+              </H4>
+            </>
+          )}
         {!lift && isWindyToggle && (
           <>
             <H1
@@ -141,15 +191,24 @@ const Home = () => {
             </H4>
           </>
         )}
-        {/* {lift === undefined && isWindyToggle === undefined && (
-          <H1
-            initial={{ x: -20 }}
-            animate={{ x: 0 }}
-            transition={{ ease: "easeOut", duration: 1 }}
-          >
-            COME BACK LATER
-          </H1>
-        )} */}
+        {lift && !isWindyToggle && (
+          <>
+            <H1
+              initial={{ x: -20 }}
+              animate={{ x: 0 }}
+              transition={{ ease: "easeOut", duration: 1 }}
+            >
+              Lifts are on, however lessons are off due to strong wind!
+            </H1>
+            <H4
+              initial={{ x: -20 }}
+              animate={{ x: 0 }}
+              transition={{ ease: "easeOut", duration: 1 }}
+            >
+              last update was @
+            </H4>
+          </>
+        )}
       </TextContainer>
     </Container>
   );
