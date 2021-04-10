@@ -9,28 +9,41 @@ const Admin = () => {
   const history = useHistory();
   const [isWindyToggle, setIsWindyToggle] = useState();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [date, setDate] = useState();
 
   useEffect(() => {
     const isWindyDb = firebase
       .firestore()
       .collection("Easykite")
       .doc("zH5WIKrlR152IaQLYa2M");
-    isWindyDb.onSnapshot((doc) => {
+    const unsubscribe = isWindyDb.onSnapshot((doc) => {
       const value = doc.data();
       value && setIsWindyToggle(value.isWindy);
+      value && setDate(value.date);
     });
+
+    return unsubscribe;
   }, []);
+
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
     history.push("/adminlift");
   };
+
+  function dateToTimestamp(date: Date) {
+    const seconds = date.getTime();
+    return { seconds: seconds, nanoseconds: 0 };
+  }
+
   const updateIsWindy = (newValue: boolean) => {
+    const timestamp = dateToTimestamp(new Date());
+
     const isWindyDb = firebase
       .firestore()
       .collection("Easykite")
       .doc("zH5WIKrlR152IaQLYa2M");
 
-    isWindyDb.update({ isWindy: newValue });
+    isWindyDb.update({ isWindy: newValue, date:  new Date()  });
   };
   const handleDragEnd = (_evt: FramerDragEvent, panInfo: PanInfo) => {
     const width = window.innerWidth;
@@ -40,9 +53,12 @@ const Admin = () => {
     const shouldUpdate = Math.abs(x) > width / 4;
     const isWindy = x > 0;
 
-    shouldUpdate && updateIsWindy(isWindy);
-    setIsModalOpen(true);
+    if (shouldUpdate) {
+      updateIsWindy(isWindy);
+      setIsModalOpen(true);
+    }
   };
+
   return (
     <>
       {isModalOpen && (
@@ -55,7 +71,7 @@ const Admin = () => {
           onClick={toggleModal}
         />
       )}
-      <Slider type="Lesson" onDragEnd={handleDragEnd} />
+      <Slider type="LESSONS" onDragEnd={handleDragEnd} />
     </>
   );
 };

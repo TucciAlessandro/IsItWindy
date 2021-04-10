@@ -8,11 +8,16 @@ const Container = styled(motion.div)`
   height: 100vh;
 `;
 
-const Type = styled.h1`
+const Type = styled(motion.h1)`
   display: flex;
   justify-content: center;
+  margin: 0rem;
+  height: 30vh;
+  text-align: center;
+  font-size: 30px;
+  font-weight: 300;
+  color: white;
   align-items: center;
-  margin: 0;
 `;
 
 export type FramerDragEvent = MouseEvent | TouchEvent | PointerEvent;

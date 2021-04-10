@@ -1,5 +1,5 @@
 import firebase from "firebase/app";
-
+import "firebase/messaging";
 import "firebase/firestore";
 
 const firebaseConfig = {
@@ -15,10 +15,24 @@ const firebaseConfig = {
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
-// firebase.firestore().collection('Easykite')
 
-// const db = firebase.database().ref("Easykite");
+export const getToken = () => {
+  const messaging = firebase.messaging();
 
-// export const isWindy = db.get().then((asd) => console.log(asd));
+  messaging
+    .getToken({ vapidKey: process.env.REACT_APP_PUSHKEY })
+    .then((currentToken) => {
+      if (currentToken) {
+        console.log("request permission");
+      } else {
+        console.log(
+          "No registration token available. Request permission to generate one."
+        );
+      }
+    })
+    .catch((err) => {
+      console.log("An error occurred while retrieving token. ", err);
+    });
+};
 
 export { firebase };

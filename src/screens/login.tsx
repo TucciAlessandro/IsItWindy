@@ -94,6 +94,7 @@ function Login() {
     evt.preventDefault();
     try {
       await firebase.auth().signInWithEmailAndPassword(username, password);
+    
       history.push("/admin");
     } catch (error) {
       console.log(error);

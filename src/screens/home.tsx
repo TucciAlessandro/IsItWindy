@@ -25,7 +25,7 @@ const TextContainer = styled(motion.div)`
   align-items: center;
   margin-top: 10rem;
 `;
-const H1 = styled(motion.h1)`
+export const H1 = styled(motion.h1)`
   display: flex;
   justify-content: center;
   margin: 0rem;
@@ -44,32 +44,40 @@ const H4 = styled(motion.h1)`
   color: white;
   align-items: center;
 `;
+
+function toDateTime(secs: any) {
+  var t = new Date(1970, 0, 1); // Epoch
+  t.setSeconds(secs);
+  return t;
+}
+
 const Home = () => {
   const [isWindyToggle, setIsWindyToggle] = useState();
   const [lift, setLift] = useState();
   const [date, setDate] = useState();
 
-  // const timestampToDate = (date: any) => {
-  //   const { seconds } = date;
-  //   let unix_timestamp = seconds;
-  //   // Create a new JavaScript Date object based on the timestamp
-  //   // multiplied by 1000 so that the argument is in milliseconds, not seconds.
-  //   if (unix_timestamp) {
-  //     let newdate = new Date(unix_timestamp * 1000);
-  //     // Hours part from the timestamp
-  //     let hours = newdate.getHours();
-  //     // Minutes part from the timestamp
-  //     let minutes = "0" + newdate.getMinutes();
-  //     // Seconds part from the timestamp
-  //     let seconds = "0" + newdate.getSeconds();
+  const timestampToDate = (date: any) => {
+    console.log(date);
+    const { seconds } = date;
+    let unix_timestamp = seconds;
 
-  //     // Will display time in 10:30:23 format
-  //     let formattedTime =
-  //       hours + ":" + minutes.substr(-2) + ":" + seconds.substr(-2);
+    if (unix_timestamp) {
+      let newdate = new Date(unix_timestamp * 1000);
 
-  //     return formattedTime;
-  //   }
-  // };
+      // Hours part from the timestamp
+      let hours = newdate.getHours();
+      // Minutes part from the timestamp
+      let minutes = "0" + newdate.getMinutes();
+      // Seconds part from the timestamp
+      let seconds = "0" + newdate.getSeconds();
+
+      // Will display time in 10:30:23 format
+      let formattedTime =
+        hours + ":" + minutes.substr(-2) + ":" + seconds.substr(-2);
+
+      return formattedTime;
+    }
+  };
 
   useEffect(() => {
     const isWindyDb = firebase
@@ -104,7 +112,6 @@ const Home = () => {
 
   return (
     <Container style={{ background }}>
-      
       <Box>
         <Svg x={spring} xInput={yInput} />
       </Box>
@@ -123,7 +130,7 @@ const Home = () => {
               animate={{ x: 0 }}
               transition={{ ease: "easeOut", duration: 1 }}
             >
-              {/* {`Last update was @ ${timestampToDate(date)} `} */}
+              {date && `Last update was @ ${timestampToDate(date)} `}
             </H4>
           </>
         ) : (
@@ -142,7 +149,9 @@ const Home = () => {
               initial={{ x: -20 }}
               animate={{ x: 0 }}
               transition={{ ease: "easeOut", duration: 1 }}
-            ></H4>
+            >
+              {date && `Last update was @ ${timestampToDate(date)} `}
+            </H4>
           </>
         )}
         {!isWindyToggle &&

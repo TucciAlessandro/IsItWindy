@@ -12,8 +12,8 @@ const ModalDiv = styled(motion.div)`
   left: 0;
   z-index: 1000;
   width: 80%;
-  border: 1px solid black;
-  box-shadow: 20px 20px 60px #d0d0d0, -20px -20px 60px #f0f0f0;
+
+  box-shadow: 10px 10px 30px #f0f0f0, -10px -10px 30px #f0f0f0;
   height: 20%;
   display: flex;
   justify-content: center;
@@ -22,8 +22,8 @@ const ModalDiv = styled(motion.div)`
   align-items: center;
 `;
 
-const Button = styled.button`
-  border: 1px solid red;
+const Button = styled(motion.button)`
+  border: 1px solid #4400ff;
   border-radius: 0.25rem;
   background: white;
   margin-bottom: 1rem;
@@ -47,9 +47,27 @@ interface ModalProps {
 
 const Modal = ({ onClick, text }: ModalProps) => {
   return (
-    <ModalDiv>
+    <ModalDiv
+      initial={{ x: -20 }}
+      animate={{ x: 0 }}
+      transition={{ ease: "easeInOut", duration: 2 }}
+    >
       <h1>{text}</h1>
-      <Button onClick={onClick}>Ok</Button>
+        <Button
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
+          onClick={onClick}
+        >
+          Wrong
+        </Button>
+        <Button
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
+          onClick={onClick}
+        >
+          Ok
+        </Button>
+      
     </ModalDiv>
   );
 };

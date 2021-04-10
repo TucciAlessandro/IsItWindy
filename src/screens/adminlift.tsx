@@ -15,10 +15,12 @@ const AdminLift = () => {
       .firestore()
       .collection("Easykite")
       .doc("zH5WIKrlR152IaQLYa2M");
-    isWindyDb.onSnapshot((doc) => {
+    const unsubscribe = isWindyDb.onSnapshot((doc) => {
       const value = doc.data();
       value && setIsLift(value.lift);
     });
+
+    return unsubscribe;
   }, []);
 
   const toggleModal = () => {
@@ -56,7 +58,7 @@ const AdminLift = () => {
           onClick={toggleModal}
         />
       )}
-      <Slider type="Lift" onDragEnd={handleDragEnd} />
+      <Slider type="LIFTS" onDragEnd={handleDragEnd} />
     </>
   );
 };
