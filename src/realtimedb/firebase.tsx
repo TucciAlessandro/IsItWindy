@@ -3,7 +3,7 @@ import "firebase/messaging";
 import "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: process.env.REACT_APP_FIREBASE,
+  apiKey: "AIzaSyBsPgk_lP39ZLMoMezAVZGM2WTc8e_bItU",
   authDomain: "easykite-c750e.firebaseapp.com",
   databaseURL:
     "https://easykite-c750e-default-rtdb.europe-west1.firebasedatabase.app",
