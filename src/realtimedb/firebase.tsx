@@ -17,9 +17,11 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 export const getToken = () => {
-  const messaging = firebase.messaging();
+  const messaging = firebase.messaging.isSupported()
+    ? firebase.messaging()
+    : null;
 
-  messaging
+  messaging && messaging
     .getToken({ vapidKey: process.env.REACT_APP_PUSHKEY })
     .then((currentToken) => {
       if (currentToken) {
