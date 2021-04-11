@@ -1,6 +1,6 @@
 import firebase from "firebase/app";
-import "firebase/messaging";
 import "firebase/firestore";
+import "firebase/messaging";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE,

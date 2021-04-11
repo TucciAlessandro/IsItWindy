@@ -178,7 +178,7 @@ const Home = () => {
                 animate={{ x: 0 }}
                 transition={{ ease: "easeOut", duration: 1 }}
               >
-                last update was @
+                {date && `Last update was @ ${timestampToDate(date)} `}
               </H4>
             </>
           )}
@@ -196,7 +196,7 @@ const Home = () => {
               animate={{ x: 0 }}
               transition={{ ease: "easeOut", duration: 1 }}
             >
-              last update was @
+              {date && `Last update was @ ${timestampToDate(date)} `}
             </H4>
           </>
         )}
@@ -214,7 +214,7 @@ const Home = () => {
               animate={{ x: 0 }}
               transition={{ ease: "easeOut", duration: 1 }}
             >
-              last update was @
+              {date && `Last update was @ ${timestampToDate(date)} `}
             </H4>
           </>
         )}
