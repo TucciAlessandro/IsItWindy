@@ -3,6 +3,7 @@ import { MenuItem } from "./MenuItem";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 import { firebase } from "./../realtimedb/firebase";
+import useLocalStorage from "../hooks/useLocalStorage";
 
 const variants = {
   open: {
@@ -28,6 +29,7 @@ const ModifiedUl = styled(motion.ul)`
 `;
 
 export const Navigation = ({ toggle }: any) => {
+  const [storedValue, setValue] = useLocalStorage("login", false);
   const history = useHistory();
   let user = firebase.auth().currentUser;
   const toHome = () => {
@@ -37,6 +39,7 @@ export const Navigation = ({ toggle }: any) => {
   const toLogout = () => {
     toggle();
     firebase.auth().signOut();
+    setValue(false);
     history.push("/");
   };
   const toLogin = () => {

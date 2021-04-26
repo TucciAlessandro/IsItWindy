@@ -4,7 +4,7 @@ import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import React, { useEffect, useState } from "react";
 import { Box } from "../components/Box";
 import { Svg } from "../components/Svg";
-import { Modal } from "../components/Modal";
+import { Toast } from "../components/Toast";
 
 const Container = styled(motion.div)`
   height: 100vh;
@@ -44,12 +44,6 @@ const H4 = styled(motion.h1)`
   color: white;
   align-items: center;
 `;
-
-function toDateTime(secs: any) {
-  var t = new Date(1970, 0, 1); // Epoch
-  t.setSeconds(secs);
-  return t;
-}
 
 const Home = () => {
   const [isWindyToggle, setIsWindyToggle] = useState();
@@ -112,7 +106,13 @@ const Home = () => {
 
   return (
     <Container style={{ background }}>
-      <Box>
+      <Box
+        drag
+        dragTransition={{ bounceStiffness: 600, bounceDamping: 10 }}
+        whileDrag={{ scale: 1.2 }}
+        dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
+        boxIndex={1}
+      >
         <Svg x={spring} xInput={yInput} />
       </Box>
       <TextContainer>
