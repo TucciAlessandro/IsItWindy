@@ -90,7 +90,7 @@ const UltimateAdmin = () => {
   return (
     <>
       <ToastDiv>
-        <Toast autoDelete={false} autoDeleteTime={4000} toastList={toastList} />
+        <Toast autoDelete={true} autoDeleteTime={4000} toastList={toastList} />
       </ToastDiv>
 
       <Slider
