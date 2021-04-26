@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { motion } from "framer-motion";
 import styled from "styled-components";
+import useLocalStorage from "../hooks/useLocalStorage";
 
 const Box = styled(motion.div)`
   background: white;
@@ -83,6 +84,7 @@ const Container = styled(motion.div)`
 `;
 
 function Login() {
+  const [isLoggedIn, setIsloggedIn] = useLocalStorage("login", false);
   const history = useHistory();
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
@@ -94,8 +96,8 @@ function Login() {
     evt.preventDefault();
     try {
       await firebase.auth().signInWithEmailAndPassword(username, password);
-    
       history.push("/admin");
+      setIsloggedIn(true);
     } catch (error) {
       console.log(error);
       setError(error.message);
