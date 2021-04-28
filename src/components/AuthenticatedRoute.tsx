@@ -7,9 +7,14 @@ import { UltimateAdmin } from "../screens/ultimateadmin";
 interface AuthenticatedRouteProps {
   path: string;
   component?: React.ComponentType<any> | undefined;
+  exact?: boolean | undefined;
 }
 
-const AuthenticatedRoute = ({ path, component }: AuthenticatedRouteProps) => {
+const AuthenticatedRoute = ({
+  path,
+  component,
+  exact,
+}: AuthenticatedRouteProps) => {
   const history = useHistory();
   const [isLoggedIn] = useLocalStorage("login", "");
   const checkIfLogged = () => {
@@ -25,7 +30,7 @@ const AuthenticatedRoute = ({ path, component }: AuthenticatedRouteProps) => {
     checkIfLogged();
   }, []);
 
-  return <Route path={path} component={component}></Route>;
+  return <Route exact={exact} path={path} component={component}></Route>;
 };
 
 export { AuthenticatedRoute };

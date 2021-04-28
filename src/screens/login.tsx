@@ -13,6 +13,8 @@ const Box = styled(motion.div)`
   height: 300px;
   z-index: 10;
   /* position: absolute; */
+  box-shadow: 0 0 15px #999;
+  opacity: 0.9;
   top: calc(50% - 150px / 2);
   left: calc(50% - 150px / 2);
   display: flex;

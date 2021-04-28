@@ -33,8 +33,7 @@ const App = () => {
       <BrowserRouter>
         <Navbar />
         <Switch>
-          <AuthenticatedRoute path="/login" component={Login} />
-          {/* <AuthenticatedRoute path="/adminlift" component={AdminLift} /> */}
+          <AuthenticatedRoute exact path="/login" component={Login} />
           <AuthenticatedRoute path="/admin" component={UltimateAdmin} />
           <Route path="/" component={Home} />
         </Switch>

@@ -51,29 +51,7 @@ const Home = () => {
   const [lift, setLift] = useState();
   const [date, setDate] = useState();
 
-  // const timestampToDate = (date: any) => {
-  //   console.log(date);
-  //   const { seconds } = date;
-  //   console.log(moment.unix(seconds));
-  //   let unix_timestamp = seconds;
 
-  //   if (unix_timestamp) {
-  //     let newdate = new Date(unix_timestamp * 1000);
-  //     console.log(moment(newdate));
-  //     // Hours part from the timestamp
-  //     let hours = newdate.getHours();
-  //     // Minutes part from the timestamp
-  //     let minutes = "0" + newdate.getMinutes();
-  //     // Seconds part from the timestamp
-  //     let seconds = "0" + newdate.getSeconds();
-
-  //     // Will display time in 10:30:23 format
-  //     let formattedTime =
-  //       hours + ":" + minutes.substr(-2) + ":" + seconds.substr(-2);
-
-  //     return formattedTime;
-  //   }
-  // };
   const timestampToDate = (date: any) => {
     const { seconds } = date;
     const newDate = moment.unix(seconds);
