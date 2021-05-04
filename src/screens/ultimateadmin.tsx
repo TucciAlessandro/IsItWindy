@@ -38,9 +38,7 @@ const UltimateAdmin = () => {
     return unsubscribe;
   }, [toastList]);
 
-  const toggleModal = () => {
-    setIsToastOpen(!isToastOpen);
-  };
+
 
   const updateIsWindy = (newValue: boolean) => {
     const isWindyDb = firebase
@@ -63,10 +61,10 @@ const UltimateAdmin = () => {
     const x = offSet.x;
     const shouldUpdate = Math.abs(x) > width / 3;
     const isWindy = x > 0;
-    isWindy
-      ? toastList.push({ id: id, text: "Lessons enabled" })
-      : toastList.push({ id: id, text: "Lessons disabled" });
     if (shouldUpdate) {
+      isWindy
+        ? toastList.push({ id: id, text: "Lessons enabled" })
+        : toastList.push({ id: id, text: "Lessons disabled" });
       updateIsWindy(isWindy);
       setIsToastOpen(!isToastOpen);
     }
@@ -78,10 +76,10 @@ const UltimateAdmin = () => {
     const shouldUpdate = Math.abs(x) > width / 3;
     const isLift = x > 0;
 
-    isLift
-      ? toastList.push({ id: id, text: "Litf enabled" })
-      : toastList.push({ id: id, text: "Lift disabled" });
     if (shouldUpdate) {
+      isLift
+        ? toastList.push({ id: id, text: "Litf enabled" })
+        : toastList.push({ id: id, text: "Lift disabled" });
       updateIsLift(isLift);
       setIsToastOpen(!isToastOpen);
     }

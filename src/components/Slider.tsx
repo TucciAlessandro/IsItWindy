@@ -68,11 +68,9 @@ export const Slider = ({
   const x2 = useMotionValue(0);
   const x2Input = [-100, 0, 100];
 
-
-
   return (
     <Container isWindy={isWindy}>
-      <Type typeIndex={0.7}>{type1}</Type>
+      <Type typeIndex={0.6}>{type1}</Type>
       <Box
         boxIndex={1}
         style={{ x }}
@@ -82,7 +80,7 @@ export const Slider = ({
       >
         <Svg x={x} xInput={xInput} />
       </Box>
-      <Type typeIndex={1.5}>{type2}</Type>
+      <Type typeIndex={1.42}>{type2}</Type>
       <Box
         boxIndex={1.8}
         style={{ x: x2 }}

@@ -5,7 +5,8 @@ import React, { useEffect, useState } from "react";
 import { Box } from "../components/Box";
 import moment from "moment";
 import { Svg } from "../components/Svg";
-import { Toast } from "../components/Toast";
+import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
+import { WhatsApp } from "../components/WhatsApp";
 
 const Container = styled(motion.div)`
   height: 100vh;
@@ -19,12 +20,12 @@ const Container = styled(motion.div)`
 
 const TextContainer = styled(motion.div)`
   display: flex;
-  height: 50%;
+  height: 80%;
   width: 80%;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 10rem;
+  margin-top: 15rem;
 `;
 export const H1 = styled(motion.h1)`
   display: flex;
@@ -50,7 +51,6 @@ const Home = () => {
   const [isWindyToggle, setIsWindyToggle] = useState();
   const [lift, setLift] = useState();
   const [date, setDate] = useState();
-
 
   const timestampToDate = (date: any) => {
     const { seconds } = date;
@@ -94,6 +94,9 @@ const Home = () => {
 
   return (
     <Container style={{ background }}>
+      <a href="https://wa.me/+393423133553">
+        <WhatsApp color="black" size="3x" icon={faWhatsapp} />
+      </a>
       <Box
         drag
         dragTransition={{ bounceStiffness: 600, bounceDamping: 10 }}

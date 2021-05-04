@@ -1,8 +1,6 @@
 import { useEffect } from "react";
 import { Route, useHistory } from "react-router-dom";
 import useLocalStorage from "../hooks/useLocalStorage";
-import Login from "../screens/login";
-import { UltimateAdmin } from "../screens/ultimateadmin";
 
 interface AuthenticatedRouteProps {
   path: string;
@@ -17,6 +15,7 @@ const AuthenticatedRoute = ({
 }: AuthenticatedRouteProps) => {
   const history = useHistory();
   const [isLoggedIn] = useLocalStorage("login", "");
+
   const checkIfLogged = () => {
     if (!isLoggedIn) {
       history.push("/login");

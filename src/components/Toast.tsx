@@ -1,11 +1,5 @@
-import { motion } from "framer-motion";
-import {
-  ButtonHTMLAttributes,
-  DetailedHTMLProps,
-  MouseEventHandler,
-  useEffect,
-  useState,
-} from "react";
+
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 
 const ToastButton = styled.button`
@@ -22,20 +16,32 @@ const ToastButton = styled.button`
   border: 0;
 `;
 
-const ToastContent = styled.div`
+interface ToastContentProps {
+  index: number;
+}
+
+const ToastContent = styled.div<ToastContentProps>`
   background-color: #fff;
   border-radius: 5px;
   padding: 0.5rem 2rem;
   margin: 0.3rem;
   font-size: 15px;
-  animation: toast-in-right 0.7s;
+  animation: toast-in-right 0.8s, fadeinout 5s forwards;
   font-weight: 400;
-  transition: 0.5s ease-in-out;
   position: relative;
   width: 150px;
-  box-shadow: 0 0 10px #999;
   opacity: 0.9;
+  box-shadow: 0 0 10px #999;
 
+  @keyframes fadeinout {
+    0%,
+    100% {
+      opacity: 0;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
   @keyframes toast-in-right {
     from {
       transform: translateX(100%);
@@ -62,7 +68,6 @@ const Toast = ({ toastList, autoDelete, autoDeleteTime }: ToastProps) => {
 
   const deleteToast = (id: number) => {
     const idx = toastList.findIndex((el) => el.id === id);
-    console.log(idx);
     toastList.splice(idx, 1);
     setList([...toastList]);
   };
@@ -84,7 +89,7 @@ const Toast = ({ toastList, autoDelete, autoDeleteTime }: ToastProps) => {
   return (
     <>
       {list.map((toast, i) => (
-        <ToastContent key={i}>
+        <ToastContent index={i} key={i}>
           <ToastButton onClick={() => deleteToast(toast.id)}>X</ToastButton>
           <p>{toast.text}</p>
         </ToastContent>
