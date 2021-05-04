@@ -1,80 +1,92 @@
 import firebase from "firebase";
 import { useState } from "react";
-
+import EasyKiteNuovo from "../images/EasykiteNuovo.jpg";
 import { useHistory } from "react-router-dom";
 import { motion } from "framer-motion";
 import styled from "styled-components";
 import useLocalStorage from "../hooks/useLocalStorage";
+import { useScreenSize } from "../hooks/useScreenSize";
 
-const Box = styled(motion.div)`
+const Logo = styled.img`
+  z-index: 2000;
+  height: auto;
+  width: 15rem;
+`;
+
+interface BoxProps {
+  isMobile: boolean;
+}
+const Box = styled(motion.div)<BoxProps>`
   background: white;
-  border-radius: 30px;
-  width: 300px;
-  height: 300px;
+  flex-direction: column;
+  width: ${(props) => (props.isMobile ? "100%" : "25rem")};
+  height: ${(props) => (props.isMobile ? "100%" : "auto")};
   z-index: 10;
-  /* position: absolute; */
-  box-shadow: 0 0 15px #999;
-  opacity: 0.9;
-  top: calc(50% - 150px / 2);
-  left: calc(50% - 150px / 2);
+  /* box-shadow: 0 0 15px #242020; */
+
+  box-shadow: 10px 10px 20px rgba(89, 118, 132, 1),
+    -10px -10px 46px rgba(89, 118, 132, 1);
+  opacity: 1;
   display: flex;
   justify-content: center;
   align-items: center;
 `;
 
+const Form = styled.form`
+  height: auto;
+  width: 15rem;
+`;
+
 const Input = styled.input`
-  border: 2px solid red;
-  border-radius: 12px;
+  border: none;
+  border-bottom: 4px solid rgba(89, 118, 132, 1);
   outline: none;
   padding: 12px 3px 12px 8px;
   font-size: 16px;
   z-index: 100;
   display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const Username = styled.h1`
-  display: flex;
-  font-weight: 300;
-  font-size: 18px;
-  justify-content: center;
-  align-items: center;
-`;
-const Password = styled.h1`
-  display: flex;
-  font-weight: 300;
-  font-size: 18px;
-  justify-content: center;
-  align-items: center;
-`;
-
-const Button = styled.button`
-  border: 1px solid red;
-  border-radius: 0.25rem;
   width: 100%;
-  margin-top: 1rem;
-  padding: 8px;
-  font-size: 16px;
-  display: flex;
-  font-weight: 300;
-  font-size: 18px;
   justify-content: center;
   align-items: center;
+`;
+
+const Label = styled.h1`
+  display: flex;
+  font-weight: 400;
+  letter-spacing: 0.1rem;
+  font-size: 18px;
+  margin-bottom: 0;
+  justify-content: flex-start;
+  align-items: center;
+`;
+const Error = styled.h1`
+  display: flex;
+  font-weight: 400;
+  letter-spacing: 0.1rem;
+  font-size: 18px;
+  margin-top: 0;
+  width: 100%;
+  justify-content: flex-start;
+  align-items: center;
+`;
+
+const Button = styled(motion.button)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  border: 1px solid rgba(89, 118, 132, 1);
+  border-radius: 30px;
+  /* background: rgba(89, 118, 132, 1); */
+  margin-top: 3rem;
+  margin-bottom: 1rem;
+  padding: 16px;
+  font-size: 16px;
+  font-weight: 300;
+  color: rgba(89, 118, 132, 1);
+  font-size: 18px;
   z-index: 100;
 `;
-
-const uiConfig = {
-  // Popup signin flow rather than redirect flow.
-  signInFlow: "popup",
-  // Redirect to /signedIn after sign in is successful. Alternatively you can provide a callbacks.signInSuccess function.
-  signInSuccessUrl: "/admin",
-  // We will display Google and Facebook as auth providers.
-  signInOptions: [
-    firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-    firebase.auth.EmailAuthProvider.PROVIDER_ID,
-  ],
-};
 
 const Container = styled(motion.div)`
   height: 100vh;
@@ -86,6 +98,8 @@ const Container = styled(motion.div)`
 `;
 
 function Login() {
+  const { screenSize } = useScreenSize();
+  const isMobile = screenSize === "small" || screenSize === "medium";
   const [isLoggedIn, setIsloggedIn] = useLocalStorage("login", false);
   const history = useHistory();
   const [username, setUserName] = useState("");
@@ -107,22 +121,27 @@ function Login() {
   };
   return (
     <Container style={{ background }}>
-      <Box>
-        <form onSubmit={handleSubmit}>
-          <Username>Write ur email</Username>
+      <Box isMobile={isMobile}>
+        <Logo src={EasyKiteNuovo} />
+        <Form onSubmit={handleSubmit}>
+          <Label>Username</Label>
           <Input
+            placeholder="Type your username"
             value={username}
             onChange={(evt) => setUserName(evt.target.value)}
           ></Input>
-          <Password>Write ur password</Password>
+          <Label>Password</Label>
           <Input
             value={password}
             type="password"
+            placeholder="Type your password"
             onChange={(evt) => setPassword(evt.target.value)}
           ></Input>
-          <Button type="submit">LOGIN</Button>
-          {error && error}
-        </form>
+          <Button whileHover={{ scale: 1.1 }} type="submit">
+            LOGIN
+          </Button>
+          <Error>{error && error}</Error>
+        </Form>
       </Box>
     </Container>
   );
