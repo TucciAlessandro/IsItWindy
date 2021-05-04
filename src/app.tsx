@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { Home } from "./screens/home";
-// import { Admin } from "./screens/admin";
 import { createGlobalStyle } from "styled-components";
 import { Navbar } from "./components/Navbar";
 import Login from "./screens/login";

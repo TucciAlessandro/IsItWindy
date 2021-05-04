@@ -3,7 +3,6 @@ import {
   useMotionValue,
   useTransform,
   PanInfo,
-  MotionValue,
 } from "framer-motion";
 import styled from "styled-components";
 import { Box } from "./Box";
@@ -60,11 +59,6 @@ export const Slider = ({
 }: SliderProps) => {
   const x = useMotionValue(0);
   const xInput = [-100, 0, 100];
-  const background = useTransform(x, xInput, [
-    "linear-gradient(180deg, #ff5100 0%, rgb(211, 9, 40) 100%)",
-    "linear-gradient(180deg, #7700ff 0%, rgb(68, 0, 255) 100%)",
-    "linear-gradient(180deg, rgb(230, 255, 0) 0%, rgb(3, 156, 0) 100%)",
-  ]);
   const x2 = useMotionValue(0);
   const x2Input = [-100, 0, 100];
 

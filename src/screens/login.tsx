@@ -19,8 +19,8 @@ interface BoxProps {
 const Box = styled(motion.div)<BoxProps>`
   background: white;
   flex-direction: column;
-  width: ${(props) => (props.isMobile ? "100%" : "25rem")};
-  height: ${(props) => (props.isMobile ? "100%" : "auto")};
+  width: ${(props) => (props.isMobile ? "100%" : "30rem")};
+  height: ${(props) => (props.isMobile ? "100%" : "35rem")};
   z-index: 10;
   /* box-shadow: 0 0 15px #242020; */
 
@@ -77,7 +77,6 @@ const Button = styled(motion.button)`
   width: 100%;
   border: 1px solid rgba(89, 118, 132, 1);
   border-radius: 30px;
-  /* background: rgba(89, 118, 132, 1); */
   margin-top: 3rem;
   margin-bottom: 1rem;
   padding: 16px;

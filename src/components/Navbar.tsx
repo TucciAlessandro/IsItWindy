@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { motion, useCycle } from "framer-motion";
+import { motion} from "framer-motion";
 import { useDimensions } from "./use-dimension";
 
 import styled from "styled-components";
@@ -47,7 +47,6 @@ const ModifiedNavbar = styled(motion.nav)<ModifiedNavbarProps>`
 `;
 const Navbar = () => {
   const [isOpen, setToggleOpen] = useState(false);
-  const [showNavbar, setShowNavbar] = useState(false);
 
   const containerRef = useRef(null);
   const { height } = useDimensions(containerRef);

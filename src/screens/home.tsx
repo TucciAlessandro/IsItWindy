@@ -92,6 +92,52 @@ const Home = () => {
     spring.set(0);
   }
 
+  const getText = (
+    isWindy: boolean | undefined,
+    isLift: boolean | undefined
+  ) => {
+    let mainText = "";
+    if (isWindyToggle === null && lift === null) {
+      mainText = "Still needs to be updated today, try again in a few minutes.";
+    }
+    if (isWindyToggle && lift) {
+      mainText = "Lessons and lifts are on!";
+    }
+    if (
+      !isWindyToggle &&
+      !lift &&
+      isWindyToggle !== undefined &&
+      isWindyToggle !== null
+    ) {
+      mainText = "Lessons and lifts are off!";
+    }
+    if (!lift && isWindyToggle) {
+      mainText =
+        "Lessons are on, however lifts are off due to not enough wind!";
+    }
+    if (lift && !isWindyToggle) {
+      mainText = "Lifts are on, however lessons are off due to strong wind!";
+    }
+    return (
+      <>
+        <H1
+          initial={{ x: -20 }}
+          animate={{ x: 0 }}
+          transition={{ ease: "easeOut", duration: 1 }}
+        >
+          {mainText}
+        </H1>
+        <H4
+          initial={{ x: -20 }}
+          animate={{ x: 0 }}
+          transition={{ ease: "easeOut", duration: 1 }}
+        >
+          {date && `Last update - ${timestampToDate(date)} `}
+        </H4>
+      </>
+    );
+  };
+
   return (
     <Container style={{ background }}>
       <a href="https://wa.me/+393423133553">
@@ -106,110 +152,7 @@ const Home = () => {
       >
         <Svg x={spring} xInput={yInput} />
       </Box>
-      <TextContainer>
-        {isWindyToggle === null && lift === null ? (
-          <>
-            <H1
-              initial={{ x: -20 }}
-              animate={{ x: 0 }}
-              transition={{ ease: "easeOut", duration: 1 }}
-            >
-              Still needs to be updated today, try again in a few minutes.
-            </H1>
-            <H4
-              initial={{ x: -20 }}
-              animate={{ x: 0 }}
-              transition={{ ease: "easeOut", duration: 1 }}
-            >
-              {date && `Last update was @ ${timestampToDate(date)} `}
-            </H4>
-          </>
-        ) : (
-          ""
-        )}
-        {isWindyToggle && lift && (
-          <>
-            <H1
-              initial={{ x: -20 }}
-              animate={{ x: 0 }}
-              transition={{ ease: "easeOut", duration: 1 }}
-            >
-              Lessons and lifts are on!{" "}
-            </H1>
-            <H4
-              initial={{ x: -20 }}
-              animate={{ x: 0 }}
-              transition={{ ease: "easeOut", duration: 1 }}
-            >
-              {date && `Last update was @ ${timestampToDate(date)} `}
-            </H4>
-          </>
-        )}
-        {!isWindyToggle &&
-          !lift &&
-          isWindyToggle !== undefined &&
-          isWindyToggle !== null && (
-            <>
-              <H1
-                initial={{ x: -20 }}
-                animate={{ x: 0 }}
-                transition={{ ease: "easeOut", duration: 1 }}
-              >
-                Lessons and lifts are off!{" "}
-              </H1>
-              <H4
-                initial={{ x: -20 }}
-                animate={{ x: 0 }}
-                transition={{ ease: "easeOut", duration: 1 }}
-              >
-                Contact the school for any problems
-              </H4>
-              <H4
-                initial={{ x: -20 }}
-                animate={{ x: 0 }}
-                transition={{ ease: "easeOut", duration: 1 }}
-              >
-                {date && `Last update was @ ${timestampToDate(date)} `}
-              </H4>
-            </>
-          )}
-        {!lift && isWindyToggle && (
-          <>
-            <H1
-              initial={{ x: -20 }}
-              animate={{ x: 0 }}
-              transition={{ ease: "easeOut", duration: 1 }}
-            >
-              Lessons are on, however lifts are off due to not enough wind!
-            </H1>
-            <H4
-              initial={{ x: -20 }}
-              animate={{ x: 0 }}
-              transition={{ ease: "easeOut", duration: 1 }}
-            >
-              {date && `Last update was @ ${timestampToDate(date)} `}
-            </H4>
-          </>
-        )}
-        {lift && !isWindyToggle && (
-          <>
-            <H1
-              initial={{ x: -20 }}
-              animate={{ x: 0 }}
-              transition={{ ease: "easeOut", duration: 1 }}
-            >
-              Lifts are on, however lessons are off due to strong wind!
-            </H1>
-            <H4
-              initial={{ x: -20 }}
-              animate={{ x: 0 }}
-              transition={{ ease: "easeOut", duration: 1 }}
-            >
-              {date && `Last update was @ ${timestampToDate(date)} `}
-            </H4>
-          </>
-        )}
-      </TextContainer>
+      <TextContainer>{getText(isWindyToggle, lift)}</TextContainer>
     </Container>
   );
 };

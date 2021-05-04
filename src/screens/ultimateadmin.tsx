@@ -36,9 +36,7 @@ const UltimateAdmin = () => {
     });
 
     return unsubscribe;
-  }, [toastList]);
-
-
+  }, [list]);
 
   const updateIsWindy = (newValue: boolean) => {
     const isWindyDb = firebase

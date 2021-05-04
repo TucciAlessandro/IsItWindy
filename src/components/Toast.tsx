@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 
@@ -85,7 +84,7 @@ const Toast = ({ toastList, autoDelete, autoDeleteTime }: ToastProps) => {
     return () => {
       clearInterval(interval);
     };
-  }, []);
+  });
   return (
     <>
       {list.map((toast, i) => (
