@@ -54,8 +54,9 @@ const Label = styled.h1`
   display: flex;
   font-weight: 400;
   letter-spacing: 0.1rem;
-  font-size: 18px;
+  font-size: 16px;
   margin-bottom: 0;
+  margin-top:1rem;
   justify-content: flex-start;
   align-items: center;
 `;
