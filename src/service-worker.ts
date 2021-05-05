@@ -6,13 +6,13 @@ import { ExpirationPlugin } from "workbox-expiration";
 import { precacheAndRoute, createHandlerBoundToURL } from "workbox-precaching";
 import { registerRoute } from "workbox-routing";
 import { StaleWhileRevalidate } from "workbox-strategies";
-// import { firebase } from "./realtimedb/firebase";
+import firebase from "firebase/app";
 import "firebase/messaging";
 
 declare const self: ServiceWorkerGlobalScope;
 // const messaging = firebase.messaging;
 // //@ts-ignore
-// messaging.onBackgroundMessage((payload) => {
+// messaging.onBackgroundMessage((payload: any) => {
 //   console.log(
 //     "[firebase-messaging-sw.js] Received background message ",
 //     payload
