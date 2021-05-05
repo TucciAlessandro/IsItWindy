@@ -21,20 +21,22 @@ export const getToken = () => {
     ? firebase.messaging()
     : null;
 
-  messaging && messaging
-    .getToken({ vapidKey: process.env.REACT_APP_PUSHKEY })
-    .then((currentToken) => {
-      if (currentToken) {
-        console.log("request permission");
-      } else {
-        console.log(
-          "No registration token available. Request permission to generate one."
-        );
-      }
-    })
-    .catch((err) => {
-      console.log("An error occurred while retrieving token. ", err);
-    });
+  messaging &&
+    messaging
+      .getToken({ vapidKey: process.env.REACT_APP_PUSHKEY })
+      .then((currentToken) => {
+        if (currentToken) {
+          console.log("request permission");
+          console.log("token is:", currentToken);
+        } else {
+          console.log(
+            "No registration token available. Request permission to generate one."
+          );
+        }
+      })
+      .catch((err) => {
+        console.log("An error occurred while retrieving token. ", err);
+      });
 };
 
 export { firebase };
