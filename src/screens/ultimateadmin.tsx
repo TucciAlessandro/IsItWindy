@@ -4,6 +4,7 @@ import { FramerDragEvent, Slider } from "../components/Slider";
 import { firebase } from "./../realtimedb/firebase";
 import { PanInfo } from "framer-motion";
 import { Toast } from "../components/Toast";
+import { useScreenSize } from "../hooks/useScreenSize";
 
 const ToastDiv = styled.div`
   position: fixed;
@@ -22,6 +23,8 @@ const UltimateAdmin = () => {
   const [isWindyToggle, setIsWindyToggle] = useState();
   const [isLift, setIsLift] = useState();
   const [isToastOpen, setIsToastOpen] = useState(false);
+  const { screenSize } = useScreenSize();
+  const isMobile = screenSize === "small" || screenSize === "medium";
 
   useEffect(() => {
     setList(toastList);
@@ -55,9 +58,13 @@ const UltimateAdmin = () => {
 
   const handleWindyDragEnd = (_evt: FramerDragEvent, panInfo: PanInfo) => {
     const width = window.innerWidth;
+    const height = window.innerHeight;
     const offSet = panInfo.offset;
     const x = offSet.x;
-    const shouldUpdate = Math.abs(x) > width / 3;
+    const shouldUpdate = isMobile
+      ? Math.abs(x) > width / 2 && Math.abs(x) > height / 3
+      : Math.abs(x) > width / 3;
+
     const isWindy = x > 0;
     if (shouldUpdate) {
       isWindy
@@ -69,9 +76,12 @@ const UltimateAdmin = () => {
   };
   const handleLiftDragEnd = (_evt: FramerDragEvent, panInfo: PanInfo) => {
     const width = window.innerWidth;
+    const height = window.innerHeight;
     const offSet = panInfo.offset;
     const x = offSet.x;
-    const shouldUpdate = Math.abs(x) > width / 3;
+    const shouldUpdate = isMobile
+      ? Math.abs(x) > width / 2 && Math.abs(x) > height / 3
+      : Math.abs(x) > width / 3;
     const isLift = x > 0;
 
     if (shouldUpdate) {
