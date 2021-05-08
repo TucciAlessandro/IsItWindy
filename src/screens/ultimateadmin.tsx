@@ -16,7 +16,8 @@ const ToastDiv = styled.div`
 `;
 
 const toastList: any = [];
-const id = Math.floor(Math.random() * 100 + 1);
+
+const createId = () => Math.floor(Math.random() * 100 + 1);
 
 const UltimateAdmin = () => {
   const [list, setList] = useState(toastList);
@@ -27,7 +28,6 @@ const UltimateAdmin = () => {
   const isMobile = screenSize === "small" || screenSize === "medium";
 
   useEffect(() => {
-    setList(toastList);
     const isWindyDb = firebase
       .firestore()
       .collection("Easykite")
@@ -39,7 +39,7 @@ const UltimateAdmin = () => {
     });
 
     return unsubscribe;
-  }, [list]);
+  }, []);
 
   const updateIsWindy = (newValue: boolean) => {
     const isWindyDb = firebase
@@ -56,20 +56,31 @@ const UltimateAdmin = () => {
     isWindyDb.update({ lift: newValue, date: new Date() });
   };
 
+  const setListAndCleanUp = (listItem: any) => {
+    setList([...list, listItem]);
+    setTimeout(() => {
+      setList((curr: any) => {
+        const newState = [...curr];
+        console.log(listItem);
+        return newState.filter((el) => el.id !== listItem.id);
+      });
+    }, 4000);
+  };
+
   const handleWindyDragEnd = (_evt: FramerDragEvent, panInfo: PanInfo) => {
     const width = window.innerWidth;
     const height = window.innerHeight;
     const offSet = panInfo.offset;
     const x = offSet.x;
     const shouldUpdate = isMobile
-      ? Math.abs(x) > width / 2 && Math.abs(x) > height / 3
+      ? Math.abs(x) > width / 3 && Math.abs(x) > height / 3
       : Math.abs(x) > width / 3;
 
     const isWindy = x > 0;
     if (shouldUpdate) {
       isWindy
-        ? toastList.push({ id: id, text: "Lessons enabled" })
-        : toastList.push({ id: id, text: "Lessons disabled" });
+        ? setListAndCleanUp({ id: createId(), text: 'Lesson enabled'})
+        : setListAndCleanUp({ id: createId(), text: "Lesson disabled" });
       updateIsWindy(isWindy);
       setIsToastOpen(!isToastOpen);
     }
@@ -86,8 +97,8 @@ const UltimateAdmin = () => {
 
     if (shouldUpdate) {
       isLift
-        ? toastList.push({ id: id, text: "Litf enabled" })
-        : toastList.push({ id: id, text: "Lift disabled" });
+        ? setListAndCleanUp({ id: createId(), text: "Lift enabled" })
+        : setListAndCleanUp({ id: createId(), text: "Lift disabled" });
       updateIsLift(isLift);
       setIsToastOpen(!isToastOpen);
     }
@@ -96,7 +107,12 @@ const UltimateAdmin = () => {
   return (
     <>
       <ToastDiv>
-        <Toast autoDelete={true} autoDeleteTime={4000} toastList={toastList} />
+        <Toast
+          setToastList={setList}
+          autoDelete={true}
+          autoDeleteTime={4000}
+          toastList={list}
+        />
       </ToastDiv>
 
       <Slider

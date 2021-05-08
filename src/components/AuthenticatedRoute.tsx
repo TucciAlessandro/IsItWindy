@@ -1,6 +1,6 @@
 import { useEffect } from "react";
-import { Route, useHistory } from "react-router-dom";
-import useLocalStorage from "../hooks/useLocalStorage";
+import { Redirect, Route, useHistory } from "react-router-dom";
+import { firebase } from "./../realtimedb/firebase";
 
 interface AuthenticatedRouteProps {
   path: string;
@@ -13,23 +13,13 @@ const AuthenticatedRoute = ({
   component,
   exact,
 }: AuthenticatedRouteProps) => {
+  const isLoggedIn = firebase.auth().currentUser !== null;
   const history = useHistory();
-  const [isLoggedIn] = useLocalStorage("login", "");
+  console.log(isLoggedIn);
+  if (isLoggedIn)
+    return <Route exact={exact} path={path} component={component}></Route>;
 
-  const checkIfLogged = () => {
-    if (!isLoggedIn) {
-      history.push("/login");
-    }
-    if (isLoggedIn) {
-      history.push("/admin");
-    }
-  };
-
-  useEffect(() => {
-    checkIfLogged();
-  }, []);
-
-  return <Route exact={exact} path={path} component={component}></Route>;
+  return <Redirect exact to={"/login"} />;
 };
 
 export { AuthenticatedRoute };

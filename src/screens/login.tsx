@@ -100,7 +100,7 @@ const Container = styled(motion.div)`
 function Login() {
   const { screenSize } = useScreenSize();
   const isMobile = screenSize === "small" || screenSize === "medium";
-  const [isLoggedIn, setIsloggedIn] = useLocalStorage("login", false);
+  
   const history = useHistory();
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
@@ -113,7 +113,6 @@ function Login() {
     try {
       await firebase.auth().signInWithEmailAndPassword(username, password);
       history.push("/admin");
-      setIsloggedIn(true);
     } catch (error) {
       console.log(error);
       setError(error.message);

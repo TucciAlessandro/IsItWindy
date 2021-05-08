@@ -25,7 +25,7 @@ const ToastContent = styled.div<ToastContentProps>`
   padding: 0.5rem 2rem;
   margin: 0.3rem;
   font-size: 15px;
-  animation: toast-in-right 0.8s, fadeinout 5s forwards;
+  animation: toast-in-right 0.8s, fadeinout 4s forwards;
   font-weight: 400;
   position: relative;
   width: 150px;
@@ -60,34 +60,37 @@ interface ToastProps {
   toastList: ToastListObject[];
   autoDelete: boolean;
   autoDeleteTime: number;
+  setToastList: ([]: any) => void;
 }
 
-const Toast = ({ toastList, autoDelete, autoDeleteTime }: ToastProps) => {
-  const [list, setList] = useState(toastList);
-
+const Toast = ({
+  setToastList,
+  toastList,
+  autoDelete,
+  autoDeleteTime,
+}: ToastProps) => {
   const deleteToast = (id: number) => {
     const idx = toastList.findIndex((el) => el.id === id);
-    toastList.splice(idx, 1);
-    setList([...toastList]);
+    const newToast = [...toastList];
+    newToast.splice(idx, 1);
+    setToastList([...newToast]);
   };
 
-  useEffect(() => {
-    setList(toastList);
-  }, [toastList, list]);
+  // useEffect(() => {
+  //   const interval = setTimeout(() => {
+  //     if (autoDelete && toastList.length) {
+  //       deleteToast(toastList[0].id);
+  //     }
+  //   }, autoDeleteTime);
+  //   return () => {
+  //     clearTimeout(interval);
+  //   };
+  // }, [toastList]);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (autoDelete && toastList.length && list.length) {
-        deleteToast(toastList[0].id);
-      }
-    }, autoDeleteTime);
-    return () => {
-      clearInterval(interval);
-    };
-  });
+
   return (
     <>
-      {list.map((toast, i) => (
+      {toastList.map((toast, i) => (
         <ToastContent index={i} key={i}>
           <ToastButton onClick={() => deleteToast(toast.id)}>X</ToastButton>
           <p>{toast.text}</p>

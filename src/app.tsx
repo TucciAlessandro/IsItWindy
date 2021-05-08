@@ -32,7 +32,7 @@ const App = () => {
       <BrowserRouter>
         <Navbar />
         <Switch>
-          <AuthenticatedRoute exact path="/login" component={Login} />
+          <Route exact path="/login" component={Login} />
           <AuthenticatedRoute path="/admin" component={UltimateAdmin} />
           <Route path="/" component={Home} />
         </Switch>

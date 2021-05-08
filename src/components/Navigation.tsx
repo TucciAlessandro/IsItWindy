@@ -29,7 +29,6 @@ const ModifiedUl = styled(motion.ul)`
 `;
 
 export const Navigation = ({ toggle }: any) => {
-  const [storedValue, setValue] = useLocalStorage("login", false);
   const history = useHistory();
   let user = firebase.auth().currentUser;
   const toHome = () => {
@@ -39,7 +38,6 @@ export const Navigation = ({ toggle }: any) => {
   const toLogout = () => {
     toggle();
     firebase.auth().signOut();
-    setValue(false);
     history.push("/");
   };
   const toLogin = () => {
