@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import styled from "styled-components";
 
 const ToastButton = styled.button`
@@ -61,6 +60,7 @@ interface ToastProps {
   autoDelete: boolean;
   autoDeleteTime: number;
   setToastList: ([]: any) => void;
+  deleteToast: (id: any) => void;
 }
 
 const Toast = ({
@@ -68,26 +68,8 @@ const Toast = ({
   toastList,
   autoDelete,
   autoDeleteTime,
+  deleteToast,
 }: ToastProps) => {
-  const deleteToast = (id: number) => {
-    const idx = toastList.findIndex((el) => el.id === id);
-    const newToast = [...toastList];
-    newToast.splice(idx, 1);
-    setToastList([...newToast]);
-  };
-
-  // useEffect(() => {
-  //   const interval = setTimeout(() => {
-  //     if (autoDelete && toastList.length) {
-  //       deleteToast(toastList[0].id);
-  //     }
-  //   }, autoDeleteTime);
-  //   return () => {
-  //     clearTimeout(interval);
-  //   };
-  // }, [toastList]);
-
-
   return (
     <>
       {toastList.map((toast, i) => (

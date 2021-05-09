@@ -23,7 +23,6 @@ const UltimateAdmin = () => {
   const [list, setList] = useState(toastList);
   const [isWindyToggle, setIsWindyToggle] = useState();
   const [isLift, setIsLift] = useState();
-  const [isToastOpen, setIsToastOpen] = useState(false);
   const { screenSize } = useScreenSize();
   const isMobile = screenSize === "small" || screenSize === "medium";
 
@@ -79,10 +78,9 @@ const UltimateAdmin = () => {
     const isWindy = x > 0;
     if (shouldUpdate) {
       isWindy
-        ? setListAndCleanUp({ id: createId(), text: 'Lesson enabled'})
+        ? setListAndCleanUp({ id: createId(), text: "Lesson enabled" })
         : setListAndCleanUp({ id: createId(), text: "Lesson disabled" });
       updateIsWindy(isWindy);
-      setIsToastOpen(!isToastOpen);
     }
   };
   const handleLiftDragEnd = (_evt: FramerDragEvent, panInfo: PanInfo) => {
@@ -91,7 +89,7 @@ const UltimateAdmin = () => {
     const offSet = panInfo.offset;
     const x = offSet.x;
     const shouldUpdate = isMobile
-      ? Math.abs(x) > width / 2 && Math.abs(x) > height / 3
+      ? Math.abs(x) > width / 3 && Math.abs(x) > height / 3
       : Math.abs(x) > width / 3;
     const isLift = x > 0;
 
@@ -100,10 +98,14 @@ const UltimateAdmin = () => {
         ? setListAndCleanUp({ id: createId(), text: "Lift enabled" })
         : setListAndCleanUp({ id: createId(), text: "Lift disabled" });
       updateIsLift(isLift);
-      setIsToastOpen(!isToastOpen);
     }
   };
-
+  const deleteToast = (id: number) => {
+    const idx = list.findIndex((el: any) => el.id === id);
+    const newToast = [...list];
+    newToast.splice(idx, 1);
+    setList([...newToast]);
+  };
   return (
     <>
       <ToastDiv>
@@ -112,6 +114,7 @@ const UltimateAdmin = () => {
           autoDelete={true}
           autoDeleteTime={4000}
           toastList={list}
+          deleteToast={deleteToast}
         />
       </ToastDiv>
 
