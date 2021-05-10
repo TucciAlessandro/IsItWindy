@@ -72,7 +72,7 @@ const UltimateAdmin = () => {
     const offSet = panInfo.offset;
     const x = offSet.x;
     const shouldUpdate = isMobile
-      ? Math.abs(x) > width / 3 && Math.abs(x) > height / 3
+      ? Math.abs(x) > width / 2 && Math.abs(x) > height / 5
       : Math.abs(x) > width / 3;
 
     const isWindy = x > 0;
@@ -89,7 +89,7 @@ const UltimateAdmin = () => {
     const offSet = panInfo.offset;
     const x = offSet.x;
     const shouldUpdate = isMobile
-      ? Math.abs(x) > width / 3 && Math.abs(x) > height / 3
+      ? Math.abs(x) > width / 2 && Math.abs(x) > height / 5
       : Math.abs(x) > width / 3;
     const isLift = x > 0;
 
