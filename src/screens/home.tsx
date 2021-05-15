@@ -1,13 +1,14 @@
 import { firebase } from "./../realtimedb/firebase";
 import styled from "styled-components";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Box } from "../components/Box";
 import moment from "moment";
 import { Svg } from "../components/Svg";
 import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
 import { WhatsApp } from "../components/WhatsApp";
-import PwaPrompt from "../components/Modal";
+import PwaPrompt2 from "../components/Modal";
+import { useScreenSize } from "../hooks/useScreenSize";
 
 const Container = styled(motion.div)`
   height: 100vh;
@@ -52,6 +53,8 @@ const Home = () => {
   const [isWindyToggle, setIsWindyToggle] = useState();
   const [lift, setLift] = useState();
   const [date, setDate] = useState();
+  const { screenSize } = useScreenSize();
+  const isMobile = screenSize === "small" || screenSize === "medium";
 
   const timestampToDate = (date: any) => {
     const { seconds } = date;
@@ -141,7 +144,7 @@ const Home = () => {
 
   return (
     <Container style={{ background }}>
-      <PwaPrompt />
+      {isMobile && <PwaPrompt2 />}
       <a href="https://wa.me/+393423133553">
         <WhatsApp color="black" size="3x" icon={faWhatsapp} />
       </a>
