@@ -31,7 +31,6 @@ const Type = styled(motion.h1)<TypeProps>`
   color: white;
   font-size: 30px;
   font-weight: 300;
-
   text-align: center;
   position: absolute;
   top: calc(${(props) => props.typeIndex * 40}% - 150px / 2);

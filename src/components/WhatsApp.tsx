@@ -4,8 +4,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const WhatsApp = styled(FontAwesomeIcon)`
   position: fixed;
   z-index: 1500;
-  bottom: 0;
-  margin: 2rem;
-  right: 0;
+  bottom: +10px;
+  /* margin: 2rem; */
+  right: +10px;
 `;
 export { WhatsApp };
