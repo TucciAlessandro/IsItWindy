@@ -11,9 +11,9 @@ const PwaPrompt = () => {
   };
 
   const renderInstallButton = () => {
-    if (isInstallPromptSupported && !isStandalone)
-      return <button onClick={onClickInstall}>Prompt PWA Install</button>;
-    return null;
+    // if (isInstallPromptSupported && !isStandalone)
+    return <button onClick={onClickInstall}>Prompt PWA Install</button>;
+    // return null;
   };
 
   return (
