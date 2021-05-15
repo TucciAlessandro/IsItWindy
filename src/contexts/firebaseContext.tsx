@@ -1,0 +1,2 @@
+const Context = () => {};
+export { Context };
