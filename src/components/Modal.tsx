@@ -1,39 +1,94 @@
-import usePWA from "../hooks/usePwa";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
+import { isInStandaloneMode, isIos } from "../utilities/utils";
+import AppleShareIcon from "./AppleShareIcon";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import { useState } from "react";
 
-const StyledButton = styled.button`
-  z-index: 10000;
-  position: absolute;
+const fadeIn = keyframes`
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0px);
+  }
 `;
-const PwaPrompt = () => {
-  const { isStandalone, isInstallPromptSupported, promptInstall } = usePWA();
 
-  const onClickInstall = async () => {
-    const didInstall = await promptInstall();
-    if (didInstall) {
-      // User accepted PWA install
-    }
-  };
+const CloseButton = styled.button`
+  position: absolute;
+  top: 0;
+  right: 0;
+  &:focus {
+    outline: none;
+  }
 
-  const renderInstallButton = () => {
-    // if (isInstallPromptSupported && !isStandalone)
-    return (
-      <StyledButton onClick={onClickInstall}>Prompt PWA Install</StyledButton>
-    );
-    // return null;
-  };
+  background-color: white;
+  border-radius: 50%;
+  border: 1px solid white;
+  /* padding: 1rem; */
+  height: 40px;
+  width: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+`;
+const Modal = styled.div`
+  position: absolute;
+  margin-bottom: 4rem;
+  z-index: 102;
+  display: flex;
+  width: 80%;
+  height: 30%;
+  bottom: 0;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  border-radius: 10px;
+  background-color: white;
+  animation: ${fadeIn} 0.5s ease-in;
+`;
+
+const ModalMainContent = styled.div`
+  display: flex;
+  flex-direction: row;
+  font-weight: 300;
+`;
+
+const H4 = styled.h4`
+  font-weight: 300;
+`;
+const H2 = styled.h2`
+  font-weight: 600;
+  letter-spacing: 1px;
+`;
+
+const PwaPrompt2 = () => {
+  const [isShowing, setIsShowing] = useState(true);
+  const shouldRender = isIos() && !isInStandaloneMode();
+
+  const closeBanner = () => setIsShowing(false);
 
   return (
-    <div>
-      <h2>PWA Infos</h2>
-      <p>
-        Is Install Prompt Supported ?{" "}
-        {isInstallPromptSupported ? "true" : "false"}
-      </p>
-      <p>Is Standalone ? {isStandalone ? "true" : "false"}</p>
-      {renderInstallButton()}
-    </div>
+    <>
+      {isShowing && shouldRender && (
+        <Modal>
+          <CloseButton onClick={closeBanner}>
+            <FontAwesomeIcon size="2x" icon={faTimes} />
+          </CloseButton>
+          <H2>Install Application</H2>
+          <ModalMainContent>
+            <H4>
+              Tap <AppleShareIcon modern /> then 'Add To Homescreen'
+            </H4>
+          </ModalMainContent>
+        </Modal>
+      )}
+    </>
   );
 };
 
-export default PwaPrompt;
+export default PwaPrompt2;
