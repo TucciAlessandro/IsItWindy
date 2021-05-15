@@ -7,6 +7,7 @@ import moment from "moment";
 import { Svg } from "../components/Svg";
 import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
 import { WhatsApp } from "../components/WhatsApp";
+import PwaPrompt from "../components/Modal";
 
 const Container = styled(motion.div)`
   height: 100vh;
@@ -140,6 +141,7 @@ const Home = () => {
 
   return (
     <Container style={{ background }}>
+      <PwaPrompt />
       <a href="https://wa.me/+393423133553">
         <WhatsApp color="black" size="3x" icon={faWhatsapp} />
       </a>
