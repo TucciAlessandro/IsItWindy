@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Redirect, Route, useHistory } from "react-router-dom";
 import { firebase } from "./../realtimedb/firebase";
 
@@ -14,10 +14,14 @@ const AuthenticatedRoute = ({
   exact,
 }: AuthenticatedRouteProps) => {
   const isLoggedIn = firebase.auth().currentUser !== null;
-  const history = useHistory();
-  console.log(isLoggedIn);
-  if (isLoggedIn)
+  console.log(firebase.auth().currentUser);
+  useEffect(() => {
+    console.log(isLoggedIn);
+  });
+  if (isLoggedIn) {
+    console.log("logged in");
     return <Route exact={exact} path={path} component={component}></Route>;
+  }
 
   return <Redirect exact to={"/login"} />;
 };
