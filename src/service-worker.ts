@@ -10,22 +10,7 @@ import firebase from "firebase/app";
 import "firebase/messaging";
 
 declare const self: ServiceWorkerGlobalScope;
-// const messaging = firebase.messaging;
-// //@ts-ignore
-// messaging.onBackgroundMessage((payload: any) => {
-//   console.log(
-//     "[firebase-messaging-sw.js] Received background message ",
-//     payload
-//   );
-//   // Customize notification here
-//   const notificationTitle = "Ciao siamo i bros";
-//   const notificationOptions = {
-//     body: "Background Message body.",
-//     icon: "/logo192.png",
-//   };
 
-//   self.registration.showNotification(notificationTitle, notificationOptions);
-// });
 
 clientsClaim();
 

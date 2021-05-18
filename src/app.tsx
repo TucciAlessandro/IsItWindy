@@ -6,9 +6,12 @@ import { createGlobalStyle } from "styled-components";
 import { Navbar } from "./components/Navbar";
 import Login from "./screens/login";
 
-import { getToken } from "./realtimedb/firebase";
 import { UltimateAdmin } from "./screens/ultimateadmin";
 import { AuthenticatedRoute } from "./components/AuthenticatedRoute";
+import {
+  FirebaseContextProvider,
+  useFirebaseContext,
+} from "./contexts/useFirebaseContext";
 
 const GlobalStyles = createGlobalStyle`
 body {
@@ -22,21 +25,19 @@ body {
 
 `;
 const App = () => {
-  useEffect(() => {
-    getToken();
-  }, []);
-
   return (
     <React.StrictMode>
-      <GlobalStyles />
-      <BrowserRouter>
-        <Navbar />
-        <Switch>
-          <Route exact path="/login" component={Login} />
-          <AuthenticatedRoute path="/admin" component={UltimateAdmin} />
-          <Route path="/" component={Home} />
-        </Switch>
-      </BrowserRouter>
+      <FirebaseContextProvider>
+        <GlobalStyles />
+        <BrowserRouter>
+          <Navbar />
+          <Switch>
+            <Route exact path="/login" component={Login} />
+            <AuthenticatedRoute path="/admin" component={UltimateAdmin} />
+            <Route path="/" component={Home} />
+          </Switch>
+        </BrowserRouter>
+      </FirebaseContextProvider>
     </React.StrictMode>
   );
 };

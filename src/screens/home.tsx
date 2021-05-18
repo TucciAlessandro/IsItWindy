@@ -1,4 +1,3 @@
-import { firebase } from "./../realtimedb/firebase";
 import styled from "styled-components";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { useEffect, useState } from "react";
@@ -10,6 +9,7 @@ import { WhatsApp } from "../components/WhatsApp";
 import PwaPrompt2 from "../components/Modal";
 import { useScreenSize } from "../hooks/useScreenSize";
 import EasyKiteNuovo from "../images/EasykiteNuovo.jpg";
+import { useFirebaseContext } from "../contexts/useFirebaseContext";
 
 const Logo = styled.img`
   z-index: 2000;
@@ -78,6 +78,7 @@ const Type = styled(motion.h1)<TypeProps>`
   align-items: center;
 `;
 const Home = () => {
+  const { getFirebaseInstance, getToken } = useFirebaseContext();
   const [isWindyToggle, setIsWindyToggle] = useState();
   const [lift, setLift] = useState();
   const [date, setDate] = useState();
@@ -91,8 +92,12 @@ const Home = () => {
       return formattedTime;
     }
   };
+
   useEffect(() => {
-    const isWindyDb = firebase
+    getToken();
+  }, []);
+  useEffect(() => {
+    const isWindyDb = getFirebaseInstance()
       .firestore()
       .collection("Easykite")
       .doc("zH5WIKrlR152IaQLYa2M");
@@ -104,7 +109,7 @@ const Home = () => {
       value && setDate(value.date);
     });
   }, []);
-  console.log(date);
+
   let y = useMotionValue(0);
   const yInput = [-100, 0, 100];
   const spring = useSpring(y);
@@ -133,19 +138,22 @@ const Home = () => {
     spring2.set(0);
   }
 
+  const showMessage = lift || isWindyToggle;
   const getText = (
     isWindy: boolean | undefined,
     isLift: boolean | undefined
   ) => {
     return (
       <>
-        <H3
-          initial={{ x: -20 }}
-          animate={{ x: 0 }}
-          transition={{ ease: "easeOut", duration: 1 }}
-        >
-          Meeting @ 7:30am in school
-        </H3>
+        {showMessage && (
+          <H3
+            initial={{ x: -20 }}
+            animate={{ x: 0 }}
+            transition={{ ease: "easeOut", duration: 1 }}
+          >
+            Meeting @ 7:30am in school
+          </H3>
+        )}
         <H4
           initial={{ x: -20 }}
           animate={{ x: 0 }}

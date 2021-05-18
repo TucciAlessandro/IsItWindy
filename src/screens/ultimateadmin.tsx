@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { FramerDragEvent, Slider } from "../components/Slider";
-import { firebase } from "./../realtimedb/firebase";
+
 import { PanInfo } from "framer-motion";
 import { Toast } from "../components/Toast";
 import { useScreenSize } from "../hooks/useScreenSize";
+import { useFirebaseContext } from "../contexts/useFirebaseContext";
 
 const ToastDiv = styled.div`
   position: fixed;
@@ -20,6 +21,7 @@ const toastList: any = [];
 const createId = () => Math.floor(Math.random() * 100 + 1);
 
 const UltimateAdmin = () => {
+  const { getFirebaseInstance } = useFirebaseContext();
   const [list, setList] = useState(toastList);
   const [isWindyToggle, setIsWindyToggle] = useState();
   const [isLift, setIsLift] = useState();
@@ -27,7 +29,7 @@ const UltimateAdmin = () => {
   const isMobile = screenSize === "small" || screenSize === "medium";
 
   useEffect(() => {
-    const isWindyDb = firebase
+    const isWindyDb = getFirebaseInstance()
       .firestore()
       .collection("Easykite")
       .doc("zH5WIKrlR152IaQLYa2M");
@@ -41,14 +43,14 @@ const UltimateAdmin = () => {
   }, []);
 
   const updateIsWindy = (newValue: boolean) => {
-    const isWindyDb = firebase
+    const isWindyDb = getFirebaseInstance()
       .firestore()
       .collection("Easykite")
       .doc("zH5WIKrlR152IaQLYa2M");
     isWindyDb.update({ isWindy: newValue, date: new Date() });
   };
   const updateIsLift = (newValue: boolean) => {
-    const isWindyDb = firebase
+    const isWindyDb = getFirebaseInstance()
       .firestore()
       .collection("Easykite")
       .doc("zH5WIKrlR152IaQLYa2M");
@@ -60,7 +62,6 @@ const UltimateAdmin = () => {
     setTimeout(() => {
       setList((curr: any) => {
         const newState = [...curr];
-        console.log(listItem);
         return newState.filter((el) => el.id !== listItem.id);
       });
     }, 4000);

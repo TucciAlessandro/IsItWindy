@@ -2,8 +2,8 @@ import { motion } from "framer-motion";
 import { MenuItem } from "./MenuItem";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
-import { firebase } from "./../realtimedb/firebase";
-import useLocalStorage from "../hooks/useLocalStorage";
+
+import { useFirebaseContext } from "../contexts/useFirebaseContext";
 
 const variants = {
   open: {
@@ -29,34 +29,38 @@ const ModifiedUl = styled(motion.ul)`
 `;
 
 export const Navigation = ({ toggle }: any) => {
+  const { isAuthenticated, getFirebaseInstance } = useFirebaseContext();
   const history = useHistory();
-  let user = firebase.auth().currentUser !== null;  
-  
+
   const toHome = () => {
     toggle();
     history.push("/");
   };
   const toLogout = () => {
     toggle();
-    firebase.auth().signOut();
+    getFirebaseInstance().auth().signOut();
     history.push("/");
   };
   const toAdmin = () => {
     toggle();
-    
-    history.push("/login");
+    history.push("/admin");
   };
   const toLogin = () => {
     toggle();
-    ;
     history.push("/login");
   };
   return (
     <ModifiedUl variants={variants}>
       <MenuItem redirect={toHome} route="HOME" i={3} key={3} />
-      {!user && <MenuItem redirect={toLogin} route="LOGIN" i={2} key={2} />}
-      {user && <MenuItem redirect={toAdmin} route="ADMIN" i={2} key={2} />}
-      {user && <MenuItem redirect={toLogout} route="LOGOUT" i={1} key={1} />}
+      {!isAuthenticated && (
+        <MenuItem redirect={toLogin} route="LOGIN" i={2} key={2} />
+      )}
+      {isAuthenticated && (
+        <MenuItem redirect={toAdmin} route="ADMIN" i={2} key={2} />
+      )}
+      {isAuthenticated && (
+        <MenuItem redirect={toLogout} route="LOGOUT" i={1} key={1} />
+      )}
     </ModifiedUl>
   );
 };
