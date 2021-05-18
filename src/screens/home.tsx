@@ -9,7 +9,18 @@ import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
 import { WhatsApp } from "../components/WhatsApp";
 import PwaPrompt2 from "../components/Modal";
 import { useScreenSize } from "../hooks/useScreenSize";
+import EasyKiteNuovo from "../images/EasykiteNuovo.jpg";
 
+const Logo = styled.img`
+  z-index: 2000;
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: auto;
+  margin-top: 0.5rem;
+  margin-right: 0.5rem;
+  width: 8rem;
+`;
 const Container = styled(motion.div)`
   height: 50vh;
   width: 100vw;
@@ -27,15 +38,15 @@ const TextContainer = styled(motion.div)`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 15rem;
+  margin-top: 13rem;
 `;
-export const H1 = styled(motion.h1)`
+export const H3 = styled(motion.h3)`
   display: flex;
   justify-content: center;
   margin: 0rem;
   text-align: center;
-  font-size: 30px;
-  font-weight: 300;
+  font-size: 22px;
+  font-weight: 500;
   color: white;
   align-items: center;
 `;
@@ -43,6 +54,7 @@ const H4 = styled(motion.h4)`
   display: flex;
   justify-content: center;
   font-size: 18px;
+  margin: 0;
   font-weight: 300;
   color: white;
   align-items: center;
@@ -127,6 +139,13 @@ const Home = () => {
   ) => {
     return (
       <>
+        <H3
+          initial={{ x: -20 }}
+          animate={{ x: 0 }}
+          transition={{ ease: "easeOut", duration: 1 }}
+        >
+          Meeting @ 7:30am in school
+        </H3>
         <H4
           initial={{ x: -20 }}
           animate={{ x: 0 }}
@@ -141,6 +160,7 @@ const Home = () => {
   return (
     <>
       <Container style={{ background }}>
+        <Logo src={EasyKiteNuovo} />
         {isMobile && <PwaPrompt2 />}
         <a href="https://wa.me/+393423133553">
           <WhatsApp color="black" size="3x" icon={faWhatsapp} />
