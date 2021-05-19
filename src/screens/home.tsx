@@ -11,7 +11,11 @@ import { useScreenSize } from "../hooks/useScreenSize";
 import EasyKiteNuovo from "../images/EasykiteNuovo.jpg";
 import { useFirebaseContext } from "../contexts/useFirebaseContext";
 
-const Logo = styled.img`
+interface LogoProps {
+  isMobile: boolean;
+}
+
+const Logo = styled.img<LogoProps>`
   z-index: 2000;
   position: absolute;
   top: 0;
@@ -19,7 +23,7 @@ const Logo = styled.img`
   height: auto;
   margin-top: 0.5rem;
   margin-right: 0.5rem;
-  width: 8rem;
+  width: ${(props) => (props.isMobile ? "8rem" : "15rem")};
 `;
 const Container = styled(motion.div)`
   height: 50vh;
@@ -168,7 +172,9 @@ const Home = () => {
   return (
     <>
       <Container style={{ background }}>
-        <Logo src={EasyKiteNuovo} />
+        <a href="https://www.easykite.it/en/">
+          <Logo isMobile={isMobile} src={EasyKiteNuovo} />
+        </a>
         {isMobile && <PwaPrompt2 />}
         <a href="https://wa.me/+393423133553">
           <WhatsApp color="black" size="3x" icon={faWhatsapp} />
